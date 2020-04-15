@@ -11,6 +11,7 @@ import javax.persistence.Id;
 public class Partita {
 	
 	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

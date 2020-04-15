@@ -12,8 +12,9 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Eroe {
+	
 	@Id
-	private String nome;
+	private String nomeEroe;
 	private Blob image;
 	
 	@GeneratedValue(strategy = GenerationType.AUTO)
