@@ -18,12 +18,11 @@
 		<% } else { %>
 
 			<CENTER>
-				<h1>Benvenuto in LibriOnline!</h1>
+				<h1>Benvenuto in BattleGround Tracker!</h1>
 
-				<i>Da qui puoi comprare i tuoi libri preferiti nella nostra sezione </i><b>Libreria</b><i> o prenderli in prestito
-				fino a un massimo di 30 giorni nella sezione </i><b>Biblioteca</b><i>.</i>
+				<i>Da qui puoi effettuare il tracking delle tue partite di Battleground e tenere nota dei tuoi successi.</i>
 				
-				<br><h3>Effettua l'accesso:</h3>
+				<br><h3>Effettua l'accesso o registrati se ancora non hai un account utente:</h3>
 
 				<form action= "gestioneAccesso" >
 					<label for="username">Username:</label><br>
