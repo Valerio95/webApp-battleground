@@ -13,7 +13,7 @@ import it.dstech.modelli.Utente;
 
 
 @WebServlet(urlPatterns = "/")
-public class GestioneBattleground extends HttpServlet {
+public class CreazioneTabellaUtenti extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@Override
