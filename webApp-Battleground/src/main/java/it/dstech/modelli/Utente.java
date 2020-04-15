@@ -2,7 +2,6 @@ package it.dstech.modelli;
 
 import java.sql.Blob;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
