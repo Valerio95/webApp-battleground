@@ -6,7 +6,7 @@
 	
 	<filter>
     <filter-name>filtroUtente</filter-name>
-    <filter-class>it.dstech.libreria.filtri.FiltroUtente</filter-class>
+    <filter-class>it.dstech.filtri.FiltroUtente</filter-class>
 </filter>
 
 
@@ -16,8 +16,19 @@
 </filter-mapping>
 
 
+<filter>
+    <filter-name>filtroAdmin</filter-name>
+    <filter-class>it.dstech.filtri.FiltroAdmin</filter-class>
+</filter>
+
+
+<filter-mapping>
+    <filter-name>filtroAdmin</filter-name>
+    <url-pattern>/admin/*</url-pattern>
+</filter-mapping>
+
 	<welcome-file-list>
-	<welcome-file>/welcomeLibreria.jsp</welcome-file>
+	<welcome-file>/Homepage.jsp</welcome-file>
 	</welcome-file-list>
 	</web-app>
 	
