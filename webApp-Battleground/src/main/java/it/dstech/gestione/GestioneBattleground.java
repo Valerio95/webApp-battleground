@@ -15,35 +15,30 @@ import it.dstech.modelli.Utente;
 @WebServlet(urlPatterns = "/")
 public class GestioneBattleground extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		EntityManagerFactory emf = (EntityManagerFactory) getServletContext().getAttribute("emf");
-		EntityManager em = emf.createEntityManager();
-
-		List<Utente> lista = em.createQuery("SELECT u FROM Utente u", Utente.class).getResultList();
-		
-		req.setAttribute("lista", lista);
-		req.getRequestDispatcher("home.jsp").forward(req, resp);
-	}
-
+	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		EntityManagerFactory emf = (EntityManagerFactory) getServletContext().getAttribute("emf");
 		EntityManager em = emf.createEntityManager();
 		Utente utente = new Utente();
 		
-
 		utente.setUsername(req.getParameter("nome"));
-		
 		
 		em.getTransaction().begin();
 		em.persist(utente);
 		em.getTransaction().commit();
 		
-		
         doGet(req, resp);
-
 	}
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		EntityManagerFactory emf = (EntityManagerFactory) getServletContext().getAttribute("emf");
+		EntityManager em = emf.createEntityManager();
 
+		List<Utente> listaUtenti = em.createQuery("SELECT u FROM Utente u", Utente.class).getResultList();
+		
+		req.setAttribute("lista", listaUtenti);
+		req.getRequestDispatcher("home.jsp").forward(req, resp);
+	}
 }

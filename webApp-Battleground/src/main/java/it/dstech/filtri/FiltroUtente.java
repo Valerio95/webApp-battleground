@@ -33,18 +33,9 @@ public class FiltroUtente implements Filter {
 			chain.doFilter(req, resp);	
 			 
 		}
-		
-		
-		
-		
-		
 	}
 
 	@Override
 	public void destroy() {
 	}
-
-	
-	
-	
 }
