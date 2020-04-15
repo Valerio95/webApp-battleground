@@ -22,7 +22,8 @@ public class GestioneBattleground extends HttpServlet {
 		EntityManager em = emf.createEntityManager();
 		Utente utente = new Utente();
 		
-		utente.setUsername(req.getParameter("nome"));
+		utente.setUsername(req.getParameter("username"));
+		utente.setPassword(req.getParameter("password"));
 		
 		em.getTransaction().begin();
 		em.persist(utente);
@@ -38,7 +39,7 @@ public class GestioneBattleground extends HttpServlet {
 
 		List<Utente> listaUtenti = em.createQuery("SELECT u FROM Utente u", Utente.class).getResultList();
 		
-		req.setAttribute("lista", listaUtenti);
-		req.getRequestDispatcher("home.jsp").forward(req, resp);
+		req.setAttribute("listaUtenti", listaUtenti);
+		req.getRequestDispatcher("Homepage.jsp").forward(req, resp);
 	}
 }
