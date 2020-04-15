@@ -4,6 +4,7 @@ import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -12,6 +13,7 @@ public class Utente {
 		private String username;
 		private String password;
 		private boolean active = false;
+		@Id
 		private int rating = 0;
 		private Blob image;
 		
