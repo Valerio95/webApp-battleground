@@ -34,7 +34,4 @@ public class GestioneBattleground {
         em.getTransaction().commit();
         em.close();
     }
-	
-	
-	
 }
