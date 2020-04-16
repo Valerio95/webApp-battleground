@@ -27,15 +27,10 @@ public class Utente {
 			super();
 		}
 		
-		
-
 		public Utente(String username, String password) {
-			super();
 			this.username = username;
 			this.password = password;
 		}
-
-
 
 		public Utente(String username, String password, boolean active, int rating, Blob image) {
 			super();

@@ -1,7 +1,6 @@
 package it.dstech.gestione;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,18 +13,17 @@ public class GestioneAccesso extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
 
-		Utente utente = Utente((String) req.getParameter("username"),(String) req.getParameter("password"));
+		Utente utente = new Utente((String ) req.getParameter("username"), (String) req.getParameter("password"));
 		String scelta = req.getParameter("scelta");
-		
+
 			
 			try {
 				if (scelta.equalsIgnoreCase("Log In")) {
 					if (utente.getUsername() == null){
-						req.setAttribute("messaggio", "Inserisci la tua email come username");
+						req.setAttribute("messaggio", "Inserisci la tua email come username per accedere");
 						req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
-					} else if (utente.getPassword().equalsIgnoreCase("Admin")) {
+					} else if (utente.getUsername().equalsIgnoreCase("Admin")) {
 						
 						req.getRequestDispatcher("/ProfiloAdmin.jsp").forward(req, resp);
 						
@@ -41,9 +39,7 @@ public class GestioneAccesso extends HttpServlet{
 				} else {
 					req.getRequestDispatcher("/Registrazione.jsp").forward(req, resp);
 				}
-			} catch (ClassNotFoundException | SQLException | InterruptedException e) {
-				e.printStackTrace();
+			} catch (Exception e) {
 			}
 	}
-
 }
