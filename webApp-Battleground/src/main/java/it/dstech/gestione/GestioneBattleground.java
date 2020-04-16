@@ -19,6 +19,7 @@ public class GestioneBattleground {
         em.getTransaction().commit();
         em.close();
     }
+	
 	public static void creazioneEroe(Eroe e) {
 	       
         em.getTransaction().begin();
@@ -34,4 +35,6 @@ public class GestioneBattleground {
         em.getTransaction().commit();
         em.close();
     }
+	
+	
 }
