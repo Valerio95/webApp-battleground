@@ -20,5 +20,4 @@ public class UtenteListener implements ServletContextListener {
 		EntityManagerFactory emf = (EntityManagerFactory) sce.getServletContext().getAttribute("emf");
 		emf.close();
 	}
-
 }
