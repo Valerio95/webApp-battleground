@@ -1,18 +1,15 @@
 package it.dstech.gestione;
 
 import java.io.IOException;
-import java.sql.Blob;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import it.dstech.modelli.Eroe;
+import it.dstech.modelli.Utente;
 
 public class CreazioneEroe extends HttpServlet {
 private static final long serialVersionUID = 1L;
@@ -26,7 +23,6 @@ private static final long serialVersionUID = 1L;
 		eroe.setNome(req.getParameter("nome"));
 		eroe.setCosto(Integer.parseInt(req.getParameter("costo")));
 		eroe.setPotere(req.getParameter("potere"));
-		eroe.setImage(Blob)session.getParameter("nome")));
 		em.getTransaction().begin();
 		em.persist(eroe);
 		em.getTransaction().commit();
