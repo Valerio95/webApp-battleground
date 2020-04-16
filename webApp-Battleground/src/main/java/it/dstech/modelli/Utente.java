@@ -9,7 +9,8 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Utente {
-		
+	
+		@Id
 		private String username;
 		private String password;
 		private boolean active = false;
@@ -25,6 +26,11 @@ public class Utente {
 		
 		public Utente() {
 			super();
+		}
+		
+		public Utente(String username, String password) {
+			this.username = username;
+			this.password = password;
 		}
 
 		public Utente(String username, String password, boolean active, int rating, Blob image) {
