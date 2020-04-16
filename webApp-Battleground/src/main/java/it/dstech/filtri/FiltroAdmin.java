@@ -30,7 +30,7 @@ public class FiltroAdmin implements Filter {
 		Utente utente =(Utente)	session.getAttribute("utente");
 		if (!utente.getUsername().equalsIgnoreCase("admin")||!utente.getPassword().equalsIgnoreCase("123")||utente==null) {
 			req.setAttribute("messaggio", "Accedi con le credenziali da amministratore");
-			req.getRequestDispatcher("/welcomeLibreria.jsp").forward(req, resp);
+			req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
 		}else {
 			System.out.println(utente);
 			chain.doFilter(req, resp);	
@@ -41,5 +41,4 @@ public class FiltroAdmin implements Filter {
 	@Override
 	public void destroy() {
 	}
-
 }
