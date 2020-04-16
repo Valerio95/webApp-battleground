@@ -37,6 +37,8 @@ public class GestioneBattleground {
 		if (eroe.getNome().equalsIgnoreCase(e.getNome())){
 			return false;
 		} 
+
+	       
         em.getTransaction().begin();
         em.persist(e);
         em.getTransaction().commit();
@@ -55,6 +57,7 @@ public class GestioneBattleground {
 		List<Eroe> listaEroi =   em.createQuery("SELECT e FROM Eroe e ", Eroe.class).getResultList();
 		return listaEroi;
 	}
+
 	
 	
 }

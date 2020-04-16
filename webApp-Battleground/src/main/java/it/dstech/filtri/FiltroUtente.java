@@ -27,7 +27,7 @@ public class FiltroUtente implements Filter {
 		Utente utente =(Utente)	session.getAttribute("utente");
 		if (utente==null) {
 			req.setAttribute("messaggio", "Utente non loggato");
-			req.getRequestDispatcher("/welcomeLibreria.jsp").forward(req, resp);
+			req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
 		}else {
 			System.out.println(utente);
 			chain.doFilter(req, resp);	

@@ -19,20 +19,21 @@ public class GestioneAccesso extends HttpServlet{
 
 			
 			try {
+				GestioneBattleground gestione=new GestioneBattleground();
 				if (scelta.equalsIgnoreCase("Log In")) {
 					if (utente.getUsername() == null){
 						req.setAttribute("messaggio", "Inserisci la tua email come username per accedere");
 						req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
 					} else if (utente.getUsername().equalsIgnoreCase("Admin")) {
-						
 						req.getRequestDispatcher("/ProfiloAdmin.jsp").forward(req, resp);
-						
 				    } else {
-				    	if(utente.isActive()) {
+				    	if(gestione.creazioneUtente(utente) && utente.isActive()) {
 				    		req.getRequestDispatcher("/ProfiloUtente.jsp").forward(req, resp);
-							
-				    	} else {
+				    	} else if(!utente.isActive()) {
 				    		req.setAttribute("messaggio", "Per effettuare l'accesso attiva il tuo account cliccando sul link dell'email che ti abbiamo inviato.");
+							req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
+				    	} else if(!gestione.creazioneUtente(utente)) {
+				    		req.setAttribute("messaggio", "Per effettuare l'accesso devi prima registrare un account.");
 							req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
 				    	}
 				    }
