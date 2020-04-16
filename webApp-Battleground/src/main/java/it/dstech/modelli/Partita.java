@@ -1,8 +1,6 @@
 
 package it.dstech.modelli;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,8 +8,6 @@ import javax.persistence.Id;
 
 @Entity
 public class Partita {
-	
-	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

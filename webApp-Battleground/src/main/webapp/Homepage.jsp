@@ -19,14 +19,18 @@
 		
 		<% } else { %>
 
+
 			<div class="center" >
+
 				<h1>Benvenuto in BattleGround Tracker!</h1>
 
 				<i>Da qui puoi effettuare il tracking delle tue partite di Battleground e tenere nota dei tuoi successi.</i>
 				
 				<br><h3>Effettua l'accesso o registrati se ancora non hai un account utente:</h3>
 
-				<form action= "" method="post" >
+
+				<form action= "" method="post">
+
 					<label for="username">Username:</label><br>
 		  			<input type="text" name="username" placeholder="E-mail"><br>
 		  			<label for="password">Password:</label><br>
@@ -40,13 +44,12 @@
 				</form>
 		 <% } %>
 
-			
-		<hr><ol> <%
+		 <hr><ol> <%
             List<Utente> lista = (List<Utente>)request.getAttribute("lista");
-            for (Utente utente : lista) { %>
-                <li> <%= utente.getUsername()%>  <%= utente.getPassword()%></li> <%
+            for (Utente persona : lista) { %>
+                <li> <%= persona.getUsername()%>  <%= persona.getPassword()%></li> <%
             } %>
         </ol><hr>
-       </div>
+			</div>
 		</body>
 </html>
