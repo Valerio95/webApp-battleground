@@ -28,6 +28,7 @@ public class GestioneBattleground {
         em.close();
         return true;
     }
+	
 	public boolean creazioneEroe(Eroe e) {
 		Query getEroe =   em.createQuery("SELECT e FROM Eroe e WHERE e.nome = ? 1", Eroe.class);
 		 getEroe.setParameter(1, e.getNome());
@@ -35,8 +36,6 @@ public class GestioneBattleground {
 		if (eroe.getNome().equalsIgnoreCase(e.getNome())){
 			return false;
 		} 
-
-	       
         em.getTransaction().begin();
         em.persist(e);
         em.getTransaction().commit();
@@ -44,8 +43,7 @@ public class GestioneBattleground {
         return true;
     }
 	
-	public void creazionePartita(Partita p) {
-	       
+	public void creazionePartita(Partita p) {       
         em.getTransaction().begin();
         em.persist(p);
         em.getTransaction().commit();
@@ -56,5 +54,7 @@ public class GestioneBattleground {
 		List<Eroe> listaEroi =   em.createQuery("SELECT e FROM Eroe e ", Eroe.class).getResultList();
 		return listaEroi;
 	}
+	
+	
 }
 
