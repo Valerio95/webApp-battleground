@@ -24,7 +24,6 @@ public class Utente {
 		List<Partita> storicoPartite = new ArrayList<Partita>();
 		
 		public Utente() {
-			super();
 		}
 		
 		public Utente(String username, String password) {
