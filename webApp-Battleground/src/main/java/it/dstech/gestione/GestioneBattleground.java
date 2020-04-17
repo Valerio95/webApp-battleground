@@ -32,6 +32,7 @@ public class GestioneBattleground {
         em.close();
         return true;
         
+        
     }
 	
 	
