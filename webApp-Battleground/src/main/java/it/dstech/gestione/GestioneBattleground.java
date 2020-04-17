@@ -18,19 +18,16 @@ public class GestioneBattleground {
 	
 	public  boolean creazioneUtente(Utente u) {
 		Query getUtente =   em.createQuery("SELECT u FROM Utente u WHERE u.username = ? 1", Utente.class);
-		 getUtente.setParameter(1, u.getUsername());
-		 Utente utente =(Utente) getUtente.getSingleResult();
+		getUtente.setParameter(1, u.getUsername());
+		Utente utente = (Utente) getUtente.getSingleResult();
 		if (utente.getUsername().equalsIgnoreCase(u.getUsername())){
 			return false;
 		}
-		
         em.getTransaction().begin();
         em.persist(u);
         em.getTransaction().commit();
         em.close();
-        return true;
-        
-        
+        return true;  
     }
 	
 	

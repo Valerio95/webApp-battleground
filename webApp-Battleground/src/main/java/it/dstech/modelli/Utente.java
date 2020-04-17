@@ -78,5 +78,13 @@ public class Utente {
 
 		public void setImage(Blob image) {
 			this.image = image;
+		}
+
+		@Override
+		public String toString() {
+			return "Utente [username=" + username + ", password=" + password + ", active=" + active + ", rating="
+					+ rating + "]";
 		}		
+		
+		
 }
