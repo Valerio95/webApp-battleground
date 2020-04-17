@@ -17,7 +17,7 @@
 		if (messaggio != null ){  %>
 			<h1><%=messaggio%></h1>
 		
-		<% } else { %>
+		<% } %>
 
 
 			<div class="center" >
@@ -29,7 +29,7 @@
 				<br><h3>Effettua l'accesso o registrati se ancora non hai un account utente:</h3>
 
 
-				<form action= "" method="post">
+				<form action= "Accesso" method="post">
 
 					<label for="username">Username:</label><br>
 		  			<input type="text" name="username" placeholder="E-mail"><br>
@@ -42,14 +42,7 @@
 					<br>
 					<input type="submit" class="button" name="scelta" value="Sign In" />
 				</form>
-		 <% } %>
 
-		 <hr><ol> <%
-            List<Utente> lista = (List<Utente>)request.getAttribute("lista");
-            for (Utente persona : lista) { %>
-                <li> <%= persona.getUsername()%>  <%= persona.getPassword()%></li> <%
-            } %>
-        </ol><hr>
 			</div>
 		</body>
 </html>

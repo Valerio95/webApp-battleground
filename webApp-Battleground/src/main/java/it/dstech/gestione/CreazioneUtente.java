@@ -5,14 +5,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import it.dstech.modelli.Utente;
 
 
-@WebServlet(urlPatterns = "/")
+
 public class CreazioneUtente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

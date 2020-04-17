@@ -2,17 +2,18 @@ package it.dstech.gestione;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import it.dstech.modelli.Utente;
 
-
+@WebServlet(urlPatterns = "/Accesso")
 public class GestioneAccesso extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		Utente utente = new Utente((String ) req.getParameter("username"), (String) req.getParameter("password"));
 		String scelta = req.getParameter("scelta");
