@@ -33,8 +33,7 @@ public class FiltroAdmin implements Filter {
 			req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
 		}else {
 			System.out.println(utente);
-			chain.doFilter(req, resp);	
-			 
+			chain.doFilter(req, resp);	 
 		}
 	}
 

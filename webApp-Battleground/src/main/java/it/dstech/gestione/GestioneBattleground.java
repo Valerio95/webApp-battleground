@@ -55,6 +55,5 @@ public class GestioneBattleground {
 		return listaEroi;
 	}
 	
-	
 }
 

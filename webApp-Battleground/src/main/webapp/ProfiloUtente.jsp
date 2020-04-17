@@ -3,10 +3,11 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="css/button.css" rel="stylesheet" type="text/css">
+<link href="css/table.css" rel="stylesheet" type="text/css">
 <head>
 <meta charset="ISO-8859-1">
-<title>Sito di Ortofrutta</title>
+<title>Profilo Utente</title>
 </head>
 <body class="sfondo">
 	<div>
@@ -18,8 +19,6 @@
 		<% }
 	else {
 %>
-
-
 			<h1>Ecco il tuo Profilo</h1>
 
 			<br>Da qui puoi gestire il tracker delle tue partite aggiungendo le tue prestazioni e visionando le tue statistiche
@@ -28,16 +27,13 @@
 
 		Seleziona un'opzione:
 
-		<form action="Homepage">
-			<br> <input type="radio" id="cerca" name="scelta" value="1">
-			<label for="libreria"><B>Libreria</B></label>: puoi esaminare la lista dei libri disponibili per l'acquisto
-			e quelli che hai già acquistato su questo sito <br> 
-			
-			<input type="radio" id="prenotati" name="scelta" value="2"> 
-			<label for="biblioteca"><B>Biblioteca</B></label>: puoi prendere in prestito dei libri fino ad un massimo di 30 giorni
-			 o restituire i libri già letti<br>
+		<form action="SceltaUtente">
+			<br> <input type="submit" class="button" name="scelta" value="1">
+			<label for="aggiungi"><B>Aggiungi una nuova partita</B></label>: aggiungi il tracker di una nuova partita che hai giocato <br> 
+			<input type="submit" class="button" name="scelta" value="2"> 
+			<label for="statistiche"><B>Statistiche</B></label>: qui puoi vedere lo storico aggiornato delle tue partite<br>
 		</form>
-
+		
 		<% } %>
 
 	</div>

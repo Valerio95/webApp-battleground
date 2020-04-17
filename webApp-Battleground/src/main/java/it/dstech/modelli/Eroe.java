@@ -15,6 +15,7 @@ public class Eroe {
 	private Blob image;
 	private String potere;
 	private int costo;
+	
 
 	
 	@OneToMany
