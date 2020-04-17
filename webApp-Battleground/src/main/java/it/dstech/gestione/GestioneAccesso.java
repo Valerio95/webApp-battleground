@@ -17,9 +17,7 @@ public class GestioneAccesso extends HttpServlet{
 
 		Utente utente = new Utente((String ) req.getParameter("username"), (String) req.getParameter("password"));
 		String scelta = req.getParameter("scelta");
-
-			
-			try {
+		
 				GestioneBattleground gestione=new GestioneBattleground();
 				if (scelta.equalsIgnoreCase("Log In")) {
 					if (utente.getUsername() == null){
@@ -41,7 +39,5 @@ public class GestioneAccesso extends HttpServlet{
 				} else {
 					req.getRequestDispatcher("/Registrazione.jsp").forward(req, resp);
 				}
-			} catch (Exception e) {
-			}
 	}
 }
