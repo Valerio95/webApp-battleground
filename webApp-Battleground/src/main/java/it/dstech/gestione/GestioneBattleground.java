@@ -5,7 +5,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 import it.dstech.modelli.Composizione;
 import it.dstech.modelli.Eroe;
 import it.dstech.modelli.Partita;
@@ -19,7 +18,7 @@ public class GestioneBattleground {
 	
 	public  boolean creazioneUtente(Utente u)throws NoResultException {
 		String username = u.getUsername();
-		List<Utente> listaUtenti  =   em.createQuery("SELECT u FROM Utente u WHERE u.username = ?1", Utente.class).setParameter(1,username).getResultList();		
+		List<Utente> listaUtenti  =  em.createQuery("SELECT u FROM Utente u WHERE u.username = ?1", Utente.class).setParameter(1,username).getResultList();		
 		for(Utente utente: listaUtenti) {
 		if (utente.getUsername().equalsIgnoreCase(u.getUsername())){
 			return false;
@@ -28,7 +27,6 @@ public class GestioneBattleground {
         em.getTransaction().begin();
         em.persist(u);
         em.getTransaction().commit();
-        em.close();
         return true;  
     }
 	

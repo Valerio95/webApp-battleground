@@ -16,16 +16,14 @@ public class GestioneAccesso extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		Utente utente = new Utente((String ) req.getParameter("username"), (String) req.getParameter("password"));
-		System.out.println(utente);
 		String scelta = req.getParameter("scelta");
-		System.out.println(scelta);
 		
 				GestioneBattleground gestione=new GestioneBattleground();
 				if (scelta.equalsIgnoreCase("Log In")) {
 					if (utente.getUsername().equalsIgnoreCase("") || utente.getPassword().equalsIgnoreCase("")){
 						req.setAttribute("messaggio", "Inserisci i tuoi dati per accedere");
 						req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
-					} else if (utente.getUsername().equalsIgnoreCase("Admin")) {
+					} else if (utente.getUsername().equalsIgnoreCase("Admin") && utente.getPassword().equalsIgnoreCase("123")) {
 						req.getRequestDispatcher("/ProfiloAdmin.jsp").forward(req, resp);
 				    } else {
 				    	boolean creazioneUtente= gestione.creazioneUtente(utente);

@@ -12,6 +12,7 @@
 </head>
 
 	<body class="sfondo">
+	<div class="center" >
 	
 	<% String messaggio = (String) request.getAttribute("messaggio"); 
 		if (messaggio != null ){  %>
@@ -20,7 +21,7 @@
 		<% } %>
 
 
-			<div class="center" >
+			
 
 				<h1>Benvenuto in BattleGround Tracker!</h1>
 
