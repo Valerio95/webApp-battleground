@@ -29,12 +29,12 @@ public class GestioneAccesso extends HttpServlet{
 						req.getRequestDispatcher("/ProfiloAdmin.jsp").forward(req, resp);
 				    } else {
 				    	boolean creazioneUtente= gestione.creazioneUtente(utente);
-				    	if(creazioneUtente==true && utente.isActive()) {
+				    	if(creazioneUtente && utente.isActive()) {
 				    		req.getRequestDispatcher("/ProfiloUtente.jsp").forward(req, resp);
-				    	} else if(!utente.isActive()) {
+				    	} else if(!utente.isActive()&&creazioneUtente ) {
 				    		req.setAttribute("messaggio", "Per effettuare l'accesso attiva il tuo account cliccando sul link dell'email che ti abbiamo inviato.");
 							req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
-				    	} else if(!gestione.creazioneUtente(utente)) {
+				    	} else if(!creazioneUtente) {
 				    		req.setAttribute("messaggio", "Per effettuare l'accesso devi prima registrare un account.");
 							req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
 				    	}
@@ -42,5 +42,29 @@ public class GestioneAccesso extends HttpServlet{
 				} else {
 					req.getRequestDispatcher("/Registrazione.jsp").forward(req, resp);
 				}
+	}
+	
+	private String scriviRispostaUtenteNonAttivo(Utente utente) {
+		String mailUtente = utente.getUsername();
+		int indexOf = mailUtente.indexOf('@');
+		String parteFinaleMail = mailUtente.substring(indexOf);
+		String primiDueCaratteri = mailUtente.substring(0, 3);
+		String mailFinale = primiDueCaratteri + contaX(indexOf - 2) + parteFinaleMail;
+		return "L'utente " + mailFinale + " non ha ancora validato l'email";
+	}
+
+	
+	
+	private String contaX(int numeri) {
+		String x = "";
+		for (int i = 0; i < numeri; i++) {
+			x += "x";
+		}
+		return x;
+	}
+	
+	private String generaLinkValidazioneUtente(Utente utente) {
+		String validationPath = "http://localhost:8080/webApp-libreria/validazione?utente=";
+		return "Per attivare la mail clicca su questo link: " + validationPath + utente.getUsername();
 	}
 }
