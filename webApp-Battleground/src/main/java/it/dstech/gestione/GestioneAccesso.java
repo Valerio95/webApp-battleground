@@ -28,7 +28,8 @@ public class GestioneAccesso extends HttpServlet{
 					} else if (utente.getUsername().equalsIgnoreCase("Admin")) {
 						req.getRequestDispatcher("/ProfiloAdmin.jsp").forward(req, resp);
 				    } else {
-				    	if(gestione.creazioneUtente(utente) && utente.isActive()) {
+				    	boolean creazioneUtente= gestione.creazioneUtente(utente);
+				    	if(creazioneUtente==true && utente.isActive()) {
 				    		req.getRequestDispatcher("/ProfiloUtente.jsp").forward(req, resp);
 				    	} else if(!utente.isActive()) {
 				    		req.setAttribute("messaggio", "Per effettuare l'accesso attiva il tuo account cliccando sul link dell'email che ti abbiamo inviato.");
