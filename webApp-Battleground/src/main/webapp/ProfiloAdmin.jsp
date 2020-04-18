@@ -11,7 +11,7 @@
 		<% String messaggio = (String) request.getAttribute("messaggio"); 
 	if (messaggio != null ){
 		%>
-		<h1>ERRORE</h1>
+		<h1 style="color:Tomato;">ERRORE</h1>
 		<%=messaggio%>
 		<% }
 	else {

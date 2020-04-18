@@ -1,10 +1,12 @@
 package it.dstech.modelli;
 
+
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -13,8 +15,9 @@ public class Utente {
 		@Id
 		private String username;
 		private String password;
-		private boolean active = false;
+		private boolean active;
 		private int rating = 0;
+		@Lob
 		private Blob image;
 		
 		@OneToMany
@@ -84,7 +87,5 @@ public class Utente {
 		public String toString() {
 			return "Utente [username=" + username + ", password=" + password + ", active=" + active + ", rating="
 					+ rating + "]";
-		}		
-		
-		
+		}			
 }

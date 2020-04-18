@@ -21,21 +21,17 @@ public class GestioneAccesso extends HttpServlet{
 				GestioneBattleground gestione=new GestioneBattleground();
 				if (scelta.equalsIgnoreCase("Log In")) {
 					if (utente.getUsername().equalsIgnoreCase("") || utente.getPassword().equalsIgnoreCase("")){
-						req.setAttribute("messaggio", "Inserisci i tuoi dati per accedere");
+						req.setAttribute("messaggio", "Credenziali errate o account non registrato");
 						req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
 					} else if (utente.getUsername().equalsIgnoreCase("Admin") && utente.getPassword().equalsIgnoreCase("123")) {
 						req.getRequestDispatcher("/ProfiloAdmin.jsp").forward(req, resp);
 				    } else {
-				    	boolean creazioneUtente= gestione.creazioneUtente(utente);
-				    	if(creazioneUtente && utente.isActive()) {
+				    	if(gestione.controlloUtente(utente) && utente.isActive()) {
 				    		req.getRequestDispatcher("/ProfiloUtente.jsp").forward(req, resp);
-				    	} else if(!utente.isActive()&&creazioneUtente ) {
+				    	} else if(!utente.isActive() && gestione.controlloUtente(utente)) {
 				    		req.setAttribute("messaggio", "Per effettuare l'accesso attiva il tuo account cliccando sul link dell'email che ti abbiamo inviato.");
 							req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
-				    	} else if(!creazioneUtente) {
-				    		req.setAttribute("messaggio", "Per effettuare l'accesso devi prima registrare un account.");
-							req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
-				    	}
+				    	} 
 				    }
 				} else {
 					req.getRequestDispatcher("/Registrazione.jsp").forward(req, resp);

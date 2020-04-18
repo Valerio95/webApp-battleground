@@ -14,20 +14,23 @@ public class GestioneBattleground {
 	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("emf");
 	private static  EntityManager em = emf.createEntityManager();
 
-	
-	
-	public  boolean creazioneUtente(Utente u)throws NoResultException {
+	public boolean controlloUtente(Utente u) {
 		String username = u.getUsername();
 		List<Utente> listaUtenti  =  em.createQuery("SELECT u FROM Utente u WHERE u.username = ?1", Utente.class).setParameter(1,username).getResultList();		
 		for(Utente utente: listaUtenti) {
 		if (utente.getUsername().equalsIgnoreCase(u.getUsername())){
-			return false;
+			return true;
 		}
 		}
-        em.getTransaction().begin();
-        em.persist(u);
-        em.getTransaction().commit();
-        return true;  
+		return false;
+	}
+	
+	public  void creazioneUtente(Utente u)throws NoResultException {
+		if(!controlloUtente(u)) {
+			em.getTransaction().begin();
+	        em.persist(u);
+	        em.getTransaction().commit();  
+		}
     }
 	
 	public void close() {

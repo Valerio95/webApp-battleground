@@ -1,14 +1,19 @@
 package it.dstech.gestione;
 
+import java.io.File;
 import java.io.IOException;
-import java.sql.Blob;
+import java.io.InputStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+
+import org.hibernate.engine.jdbc.BlobProxy;
 
 import it.dstech.modelli.Utente;
 import it.dstech.utility.EmailUtility;
@@ -16,7 +21,8 @@ import it.dstech.utility.EmailUtility;
 
 @WebServlet(urlPatterns = "/Registrati")
 public class Registrazione extends HttpServlet {
-
+	private static final long serialVersionUID = 1L;
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setAttribute("messaggio", "Pagina non accessibile");
@@ -26,42 +32,52 @@ public class Registrazione extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String username = req.getParameter("username");
+		
 		String password = req.getParameter("password");
-		Blob imagePart =(Blob) req.getPart("image");
+		
+		File file = new File("image");
+		InputStream image = req.getInputStream();
+		int imageLength = (int)file.length();
+		
 		Utente u = new Utente();
 		u.setPassword(password);
 		u.setUsername(username);
-		u.setImage(imagePart);
+		u.setImage(BlobProxy.generateProxy(image, imageLength));
+		
+		if(!controlloUsername(u.getUsername())) {
+			req.setAttribute("messaggio", "Attenzione: come username deve essere inserita una email valida");
+			req.getRequestDispatcher("/Registrazione.jsp").forward(req, resp);
+		}
+		
 		try {
-			GestioneBattleground	gestioneB = new GestioneBattleground();
-			boolean aggiungiUtente= gestioneB.creazioneUtente(u);
-			if(aggiungiUtente) {
-			EmailUtility.sendEmail(u.getUsername(), "Conferma Mail", generaLinkValidazioneUtente(u));
-			gestioneB.close();
-			req.setAttribute("messaggio", "Controlla la mail per attivare l'account");
-			req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
-
-			}else {
-				gestioneB.close();
+			GestioneBattleground	gestione = new GestioneBattleground();
+			
+			if(!gestione.controlloUtente(u)) {
+				gestione.creazioneUtente(u);
+				EmailUtility.sendEmail(u.getUsername(), "Conferma Mail", generaLinkValidazioneUtente(u));
+				req.setAttribute("messaggio", "Controlla la mail per attivare l'account");
+				req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
+			} else {
 				req.setAttribute("messaggio", "Mail già presente nel DB");
 				req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
 			}
 		} catch ( MessagingException e) {
-			
-			
 			e.printStackTrace();
-
 		}
 	}
-	
-
 		
+	private boolean controlloUsername(String username) {
+		String regex = "/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(username);
+		if(matcher.matches()) {
+			return true;
+		}
+		return false;
+	}
 
-	
-		
 	private String generaLinkValidazioneUtente(Utente utente) {
 		String validationPath = "http://localhost:8080/webApp-libreria/validazione?utente=";
 		return "Per attivare la mail clicca su questo link: " + validationPath + utente.getUsername();
 	}
-
 }

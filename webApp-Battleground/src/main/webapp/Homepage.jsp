@@ -4,8 +4,9 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<link href="css/button.css" rel="stylesheet" type="text/css">
-<link href="css/table.css" rel="stylesheet" type="text/css">
+<link href="css/buttons.css" rel="stylesheet" type="text/css">
+<link href="css/background.css" rel="stylesheet" type="text/css">
+<link href="css/text.css" rel="stylesheet" type="text/css">
 <head>
 <meta charset="ISO-8859-1">
 <title>Battleground Tracker</title>
@@ -16,7 +17,7 @@
 	
 	<% String messaggio = (String) request.getAttribute("messaggio"); 
 		if (messaggio != null ){  %>
-			<h1><%=messaggio%></h1>
+			<h1 style="color:Tomato;"><%=messaggio%></h1>
 		
 		<% } %>
 
@@ -37,11 +38,11 @@
 		  			<label for="password">Password:</label><br>
 		  			<input type="password" name="password" placeholder="Password">
 		  			<br>
-					<br> <input type="submit" class="button" name="scelta" value="Log In" />
+					<br> <input type="submit" class="buttons" name="scelta" value="Log In" />
 					<br>
 					<br>Non sei ancora registrato? <br>
 					<br>
-					<input type="submit" class="button" name="scelta" value="Sign In" />
+					<input type="submit" class="buttons" name="scelta" value="Sign In" />
 				</form>
 
 			</div>
