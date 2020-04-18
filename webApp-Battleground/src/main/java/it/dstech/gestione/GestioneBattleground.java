@@ -28,11 +28,12 @@ public class GestioneBattleground {
         em.getTransaction().begin();
         em.persist(u);
         em.getTransaction().commit();
-        em.close();
         return true;  
     }
 	
-	
+	public void close() {
+		em.close();
+	}
 	public boolean creazioneEroe(Eroe e) {
 		String username = e.getNome();
 		List<Eroe> listaEroi  =   em.createQuery("SELECT e FROM Eroe e WHERE e.nome = ?1", Eroe.class).setParameter(1,username).getResultList();		
@@ -45,7 +46,6 @@ public class GestioneBattleground {
         em.getTransaction().begin();
         em.persist(e);
         em.getTransaction().commit();
-        em.close();
         return true;
     }
 	
@@ -56,7 +56,6 @@ public class GestioneBattleground {
         em.getTransaction().begin();
         em.persist(p);
         em.getTransaction().commit();
-        em.close();
     }
 
 	
@@ -87,7 +86,6 @@ public class GestioneBattleground {
 		em.getTransaction().begin();
         em.persist(composizione);
         em.getTransaction().commit();
-        em.close();
 		
 	}
 	
