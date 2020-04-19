@@ -22,16 +22,11 @@ public class ControlloValidazione extends HttpServlet {
 		GestioneBattleground gestione;
 		HttpSession session = req.getSession();
 		Utente utente = (Utente) session.getAttribute("utente");
-		try {
-			gestione = new GestioneBattleground();
-			gestione.validaUtente(utente);
-			gestione.close();
-			req.setAttribute("messaggio", "L'utente " + mailUtente + " è stato validato");
-			req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
-
-		} catch ( SQLException e) {
-			e.printStackTrace();
-		}
+		gestione = new GestioneBattleground();
+		gestione.validaUtente(utente);
+		gestione.close();
+		req.setAttribute("messaggio", "L'utente " + mailUtente + " è stato validato");
+		req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
 		
 	}
 }

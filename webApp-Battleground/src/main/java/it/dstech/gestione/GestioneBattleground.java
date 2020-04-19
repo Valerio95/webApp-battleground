@@ -14,6 +14,9 @@ import it.dstech.modelli.Eroe;
 import it.dstech.modelli.Partita;
 import it.dstech.modelli.Utente;
 import javax.servlet.http.HttpSession;
+
+
+
  
 public class GestioneBattleground {
 	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("emf");
@@ -96,11 +99,16 @@ public class GestioneBattleground {
 		
 	}
 	
-	public void validaUtente(Utente u) throws SQLException {
-	 em.createQuery("UPDATE Utente SET active=?1 "+"WHERE username=?2").setParameter(1, true).setParameter(2, u.getUsername());
+	
+	public void validaUtente(Utente u) {
+
+        Query query = em.createQuery("SELECT u FROM Utente u WHERE u.username = ?1", Utente.class).setParameter(1, u.getUsername());
         
-	
-	}
-	
+        Utente utente = (Utente) query.getSingleResult();
+        em.getTransaction().begin();
+        utente.setActive(true);
+        em.getTransaction().commit();
+
+    }
 }
 
