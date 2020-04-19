@@ -2,12 +2,18 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+<link href="css/buttons.css" rel="stylesheet" type="text/css">
+<link href="css/Admin.css" rel="stylesheet" type="text/css">
+<link href="css/text.css" rel="stylesheet" type="text/css">
+<link href="css/table.css" rel="stylesheet" type="text/css">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Profilo Admin</title>
 </head>
-<body class="sfondo">
-	<div>
+<body class="Admin">
+<div class="center">
+
+
 		<% String messaggio = (String) request.getAttribute("messaggio"); 
 	if (messaggio != null ){
 		%>
@@ -18,19 +24,19 @@
 %>
 			<h1>Benvenuto Amministratore</h1>
 
-			<br>Qui puoi gestire la tua applicazione.<br>
+			<br>Qui puoi inserire o rimuovere gli eroi che gli utenti potranno aggiungere nel tracker.<br>
+
+<br>
 
 
-		Seleziona un'opzione:
-
-		<form action="SceltaAdmin">
-	<input type="submit"  class = "button " name ="azione" value="Aggiungi/RimuoviEroe" /> <br><br>
-	<input type="submit"  class = "button " name ="azione" value="Aggiungi/RimuoviComposizione" /> <br><br>
-	
+		<form action="SceltaAdmin" method="post">
+			<input type="submit"  class = "button" name ="azione" value="Aggiungi Eroe" /> <br><br>
+			<input type="submit"  class = "button" name ="azione" value="Rimuovi Eroe" /> <br><br>
+			<input type="submit"  class = "button" name ="azione" value="Aggiungi Composizione" /> <br><br>
+			<input type="submit"  class = "button" name ="azione" value="Rimuovi Composizione" /> <br><br>
 		</form>
-		
 		<% } %>
-
+		
 	</div>
 </body>
 </html>

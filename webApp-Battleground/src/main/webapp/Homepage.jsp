@@ -4,8 +4,7 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<link href="css/buttons.css" rel="stylesheet" type="text/css">
-<link href="css/background.css" rel="stylesheet" type="text/css">
+<link href="css/Default.css" rel="stylesheet" type="text/css">
 <link href="css/text.css" rel="stylesheet" type="text/css">
 <head>
 <meta charset="ISO-8859-1">
@@ -17,12 +16,9 @@
 	
 	<% String messaggio = (String) request.getAttribute("messaggio"); 
 		if (messaggio != null ){  %>
-			<h1 style="color:Tomato;"><%=messaggio%></h1>
+			<h1 style="color:red;"><%=messaggio%></h1>
 		
 		<% } %>
-
-
-			
 
 				<h1>Benvenuto in BattleGround Tracker!</h1>
 
@@ -34,15 +30,17 @@
 				<form action= "Accesso" method="post">
 
 					<label for="username">Username:</label><br>
-		  			<input type="text" name="username" placeholder="E-mail"><br>
+		  			<input2><input type="text" name="username" placeholder="E-mail"></input2><br>
 		  			<label for="password">Password:</label><br>
-		  			<input type="password" name="password" placeholder="Password">
+		  			<input2><input type="password" name="password" placeholder="Password"></input2>
 		  			<br>
-					<br> <input type="submit" class="buttons" name="scelta" value="Log In" />
+		  			<br>
+					<button> <input type="submit" name="scelta" value="Log In" /></button>
 					<br>
 					<br>Non sei ancora registrato? <br>
 					<br>
-					<input type="submit" class="buttons" name="scelta" value="Sign In" />
+					<button><input type="submit" name="scelta" value="Sign In" /></button>
+					
 				</form>
 
 			</div>
