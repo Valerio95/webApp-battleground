@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 
@@ -32,9 +33,8 @@ public class Registrazione extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String username = req.getParameter("username");
-		
 		String password = req.getParameter("password");
-		
+		HttpSession session = req.getSession();
 		File file = new File("image");
 		InputStream image = req.getInputStream();
 		int imageLength = (int)file.length();
@@ -43,8 +43,9 @@ public class Registrazione extends HttpServlet {
 		u.setPassword(password);
 		u.setUsername(username);
 		u.setImage(BlobProxy.generateProxy(image, imageLength));
+		session.setAttribute("utente", u);
 		
-		if(!controlloUsername(u.getUsername())) {
+		if(controlloUsername(u.getUsername())) {
 			req.setAttribute("messaggio", "Attenzione: come username deve essere inserita una email valida");
 			req.getRequestDispatcher("/Registrazione.jsp").forward(req, resp);
 		}
@@ -77,7 +78,7 @@ public class Registrazione extends HttpServlet {
 	}
 
 	private String generaLinkValidazioneUtente(Utente utente) {
-		String validationPath = "http://localhost:8080/webApp-libreria/validazione?utente=";
+		String validationPath = "http://localhost:8080/webApp-Battleground/validazione?utente=";
 		return "Per attivare la mail clicca su questo link: " + validationPath + utente.getUsername();
 	}
 }

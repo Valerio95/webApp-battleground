@@ -1,15 +1,20 @@
 package it.dstech.gestione;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+
 import it.dstech.modelli.Composizione;
 import it.dstech.modelli.Eroe;
 import it.dstech.modelli.Partita;
 import it.dstech.modelli.Utente;
-
+import javax.servlet.http.HttpSession;
+ 
 public class GestioneBattleground {
 	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("emf");
 	private static  EntityManager em = emf.createEntityManager();
@@ -89,6 +94,12 @@ public class GestioneBattleground {
         em.persist(composizione);
         em.getTransaction().commit();
 		
+	}
+	
+	public void validaUtente(Utente u) throws SQLException {
+	 em.createQuery("UPDATE Utente SET active=?1 "+"WHERE username=?2").setParameter(1, true).setParameter(2, u.getUsername());
+        
+	
 	}
 	
 }

@@ -19,6 +19,7 @@
 		<% }
 	else {
 %>
+
 			<h1>Ecco il tuo Profilo</h1>
 
 			<br>Da qui puoi gestire il tracker delle tue partite aggiungendo le tue prestazioni e visionando le tue statistiche
