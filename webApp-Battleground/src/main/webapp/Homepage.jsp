@@ -4,14 +4,15 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<link href="css/Default.css" rel="stylesheet" type="text/css">
+<link href="css/Admin.css" rel="stylesheet" type="text/css">
 <link href="css/text.css" rel="stylesheet" type="text/css">
+
 <head>
 <meta charset="ISO-8859-1">
 <title>Battleground Tracker</title>
 </head>
 
-	<body class="sfondo">
+	<body>
 	<div class="center" >
 	
 	<% String messaggio = (String) request.getAttribute("messaggio"); 
@@ -30,16 +31,15 @@
 				<form action= "Accesso" method="post">
 
 					<label for="username">Username:</label><br>
-		  			<input2><input type="text" name="username" placeholder="E-mail"></input2><br>
+		  			<input type="text" name="username"  placeholder="E-mail"><br>
 		  			<label for="password">Password:</label><br>
-		  			<input2><input type="password" name="password" placeholder="Password"></input2>
-		  			<br>
-		  			<br>
-					<button> <input type="submit" name="scelta" value="Log In" /></button>
+		  			<input type="password" name="password" placeholder="Password"><br>
+		  			
+					 <input type="submit" class="button" name="scelta" value="Log In" />
 					<br>
 					<br>Non sei ancora registrato? <br>
 					<br>
-					<button><input type="submit" name="scelta" value="Sign In" /></button>
+					<input type="submit" name="scelta" class="button" value="Sign In" />
 					
 				</form>
 
