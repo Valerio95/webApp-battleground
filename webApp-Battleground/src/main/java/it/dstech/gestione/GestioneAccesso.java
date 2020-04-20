@@ -17,6 +17,7 @@ public class GestioneAccesso extends HttpServlet{
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 HttpSession session =req.getSession();
+
     Utente utente = new Utente( req.getParameter("username"),  req.getParameter("password"));
     String scelta = req.getParameter("scelta");
     session.setAttribute("utente", utente);

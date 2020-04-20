@@ -1,6 +1,8 @@
 package it.dstech.gestione;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Base64;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import javax.servlet.http.Part;
 
 import it.dstech.modelli.Utente;
 import it.dstech.utility.EmailUtility;
@@ -31,15 +33,19 @@ public class Registrazione extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     String username = req.getParameter("username");
     String password = req.getParameter("password");
-    String  immagine = req.getParameter("image");
     HttpSession session = req.getSession();
     
-   
+    Part image = req.getPart("image");
+    InputStream f= image.getInputStream();
+    byte[] imageBytes = new byte[ (int)image.getSize()];
+    f.read(imageBytes,0,imageBytes.length);
+    f.close();
+    String imageStr = Base64.getEncoder().encodeToString(imageBytes);
     
     Utente u = new Utente();
     u.setPassword(password);
     u.setUsername(username);
-    u.setImage(immagine);
+    u.setImage(imageStr);
     session.setAttribute("utente", u);
     
     if(controlloUsername(u.getUsername())) {

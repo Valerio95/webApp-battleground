@@ -31,7 +31,7 @@
 		  			<input2><input type="password" name="password" placeholder="Password"></input2><br>
 		  			<br>
 		  			<b><label for="password">Immagine:</label><br></b>
-		  			<input type="file" name="image" >
+		  			<input type="image" name="image" >
 		  			<br>
 					<br><button><input type="submit" class="button" name="scelta" value="Sign In" /></button>
 				</form>
