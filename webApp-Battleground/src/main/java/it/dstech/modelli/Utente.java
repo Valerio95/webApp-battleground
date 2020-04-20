@@ -4,6 +4,8 @@ package it.dstech.modelli;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
@@ -18,6 +20,7 @@ public class Utente {
     private boolean active;
     private int rating = 0;
     @Lob
+    @Column(columnDefinition ="LONGBLOB NOT NULL")
     private String image;
     
     @OneToMany

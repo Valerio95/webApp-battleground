@@ -1,8 +1,6 @@
 package it.dstech.gestione;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.engine.jdbc.BlobProxy;
 
 import it.dstech.modelli.Utente;
 import it.dstech.utility.EmailUtility;
@@ -34,15 +31,15 @@ public class Registrazione extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     String username = req.getParameter("username");
     String password = req.getParameter("password");
+    String  immagine = req.getParameter("image");
     HttpSession session = req.getSession();
-    File file = new File("image");
-    InputStream image = req.getInputStream();
-    int imageLength = (int)file.length();
+    
+   
     
     Utente u = new Utente();
     u.setPassword(password);
     u.setUsername(username);
-    //u.setImage(BlobProxy.generateProxy(image, imageLength));
+    u.setImage(immagine);
     session.setAttribute("utente", u);
     
     if(controlloUsername(u.getUsername())) {

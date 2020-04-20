@@ -6,6 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import it.dstech.modelli.Utente;
 
 @WebServlet(urlPatterns = "/Accesso")
@@ -14,13 +16,13 @@ public class GestioneAccesso extends HttpServlet{
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    Utente utente = new Utente((String ) req.getParameter("username"), (String) req.getParameter("password"));
+HttpSession session =req.getSession();
+    Utente utente = new Utente( req.getParameter("username"),  req.getParameter("password"));
     String scelta = req.getParameter("scelta");
-    
+    session.setAttribute("utente", utente);
         GestioneBattleground gestione=new GestioneBattleground();
         if (scelta.equalsIgnoreCase("Log In")) {
-          if (utente.getUsername().equalsIgnoreCase("") || utente.getPassword().equalsIgnoreCase("")){
+          if (utente.getUsername().equalsIgnoreCase("") || utente.getPassword().equalsIgnoreCase("") || utente.getPassword()==null||utente.getUsername()==null){
             req.setAttribute("messaggio", "Credenziali errate o account non registrato");
             req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
           } else if (utente.getUsername().equalsIgnoreCase("Admin") && utente.getPassword().equalsIgnoreCase("123")) {
@@ -38,27 +40,5 @@ public class GestioneAccesso extends HttpServlet{
         }
   }
   
-  private String scriviRispostaUtenteNonAttivo(Utente utente) {
-    String mailUtente = utente.getUsername();
-    int indexOf = mailUtente.indexOf('@');
-    String parteFinaleMail = mailUtente.substring(indexOf);
-    String primiDueCaratteri = mailUtente.substring(0, 3);
-    String mailFinale = primiDueCaratteri + contaX(indexOf - 2) + parteFinaleMail;
-    return "L'utente " + mailFinale + " non ha ancora validato l'email";
-  }
-
   
-  
-  private String contaX(int numeri) {
-    String x = "";
-    for (int i = 0; i < numeri; i++) {
-      x += "x";
-    }
-    return x;
-  }
-  
-  private String generaLinkValidazioneUtente(Utente utente) {
-    String validationPath = "http://localhost:8080/webApp-libreria/validazione?utente=";
-    return "Per attivare la mail clicca su questo link: " + validationPath + utente.getUsername();
-  }
 }

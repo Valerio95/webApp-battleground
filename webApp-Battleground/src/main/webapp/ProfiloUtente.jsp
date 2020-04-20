@@ -1,15 +1,16 @@
 <%@page import="java.util.List"%>
+<%@page import="it.dstech.modelli.Utente"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<link href="css/button.css" rel="stylesheet" type="text/css">
+<link href="css/Admin.css" rel="stylesheet" type="text/css">
 <link href="css/table.css" rel="stylesheet" type="text/css">
 <head>
 <meta charset="ISO-8859-1">
 <title>Profilo Utente</title>
 </head>
-<body class="sfondo">
+<body class="center">
 	<div>
 		<% String messaggio = (String) request.getAttribute("messaggio"); 
 	if (messaggio != null ){
@@ -19,6 +20,9 @@
 		<% }
 	else {
 %>
+<% Utente utente = (Utente)session.getAttribute("utente"); %>
+<img alt="immagine" src="data:image/jpg;base64,<%= utente.getImage() %>"> <br>
+
 
 			<h1>Ecco il tuo Profilo</h1>
 
@@ -29,9 +33,9 @@
 		Seleziona un'opzione:
 
 		<form action="SceltaUtente">
-			<br> <input type="submit" class="button" name="scelta" value="1">
+			<br> <input type="submit" class="button" name="scelta" value="Aggiungi partita">
 			<label for="aggiungi"><B>Aggiungi una nuova partita</B></label>: aggiungi il tracker di una nuova partita che hai giocato <br> 
-			<input type="submit" class="button" name="scelta" value="2"> 
+			<input type="submit" class="button" name="scelta" value="Statistiche"> 
 			<label for="statistiche"><B>Statistiche</B></label>: qui puoi vedere lo storico aggiornato delle tue partite<br>
 		</form>
 		
