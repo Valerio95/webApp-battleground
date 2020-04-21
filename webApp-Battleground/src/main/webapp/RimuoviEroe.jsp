@@ -1,16 +1,22 @@
 <%@page import="it.dstech.modelli.Eroe"%>
 <%@page import="java.util.List"%>
+<%@page import="it.dstech.gestione.GestioneBattleground"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="css/Admin.css" rel="stylesheet" type="text/css">
+<link href="css/Default.css" rel="stylesheet" type="text/css">
+<link href="css/text.css" rel="stylesheet" type="text/css">
+<link href="css/table.css" rel="stylesheet" type="text/css">
 <head>
 <meta charset="ISO-8859-1">
 <title>Rimozione eroe</title>
 </head>
-<body class="sfondo">
-	<div>
+<body class="background">
+	<div class="center">
+<%GestioneBattleground gestione = new GestioneBattleground(); %>
 
 		<% String messaggio = (String) request.getAttribute("messaggio"); 
 	if (messaggio != null ){
@@ -21,7 +27,7 @@
 	else {
 %>
 
-		<%List<Eroe> listaEroi = (List<Eroe>)session.getAttribute("lista");%>
+		<%List<Eroe> listaEroi = (List<Eroe>)request.getAttribute("lista");%>
 <table class="table">
 <tr>
   <th>Lista Eroi</th>
@@ -36,6 +42,8 @@ Potere</td>
 Costo</td> 
 <td>
 HP</td>    
+<td>
+Immagine eroe</td>    
 
   
 <% for(Eroe l : listaEroi){%>
@@ -55,7 +63,14 @@ HP</td>
 <%=l.getHP()%>
 </td> 
 <td>
-<form action="RimuoviEroe">
+
+<img alt="immagine" src="data:image/jpg;base64,<%=gestione.getImageEroeString(l)%>"> <br>
+
+</td> 
+<td>
+<form action="RimuoviEroe" method="post">
+<input type="text" hidden="true" name ="eroe" value=<%=l.getNome()%>><br><br>
+
 <input type="submit" value="Rimuovi">
 </form></td> 
 <% } %>
