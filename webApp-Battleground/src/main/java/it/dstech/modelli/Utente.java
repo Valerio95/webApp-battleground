@@ -37,13 +37,13 @@ public class Utente {
       this.password = password;
     }
 
-    public Utente(String username, String password, boolean active, int rating, Blob image) {
+    public Utente(String username, String password, boolean active, int rating, String image) {
       super();
       this.username = username;
       this.password = password;
       this.active = active;
       this.rating = rating;
-      //this.image = image;
+      this.image = image;
     }
 
     public String getUsername() {

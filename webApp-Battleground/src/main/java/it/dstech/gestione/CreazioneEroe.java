@@ -30,10 +30,13 @@ public class CreazioneEroe extends HttpServlet {
       eroe.setCosto(Integer.parseInt(req.getParameter("costo")));
       eroe.setHP(Integer.parseInt(req.getParameter("HP")));
       System.out.println(eroe);
+     
 	    HttpSession session = req.getSession();
 	    session.setAttribute("eroe", eroe);    
 	    GestioneBattleground gestione = new GestioneBattleground();
 	    gestione.creazioneEroe(eroe);
+	    List<Eroe> listaEroi =gestione.stampaEroi();
+	    session.setAttribute("lista", listaEroi);    
 	    req.getRequestDispatcher("AggiungiEroe.jsp").forward(req, resp);
 	  }
 }
