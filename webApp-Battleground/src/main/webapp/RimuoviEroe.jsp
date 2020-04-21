@@ -21,28 +21,51 @@
 	else {
 %>
 
-		<%List<Eroe> listaEroi = (List<Eroe>)request.getAttribute("lista");%>
+		<%List<Eroe> listaEroi = (List<Eroe>)session.getAttribute("lista");%>
+<table class="table">
+<tr>
+  <th>Lista Eroi</th>
+</tr>
+<tr>
+    <td>
+Nome
+</td> 
+<td>
+Potere</td> 
+<td>
+Costo</td> 
+<td>
+HP</td>    
 
-		<form action="RimuoviEroe">
-			<label for="eroe">Seleziona l'eroe da rimuovere</label><br>
-			<p>
-				NomeProdotto : <select name="idProdotto">
+  
+<% for(Eroe l : listaEroi){%>
 
-					<%for(Eroe p : listaEroi){%>
-		<option value=<%=p.getNome()%>>
-						<%=p.getNome()%>
+<tr>
 
-						<% } %>
-					
-				</select>
-			</p>
-			<input type="submit" value="Rimuovi">
-		</form>
+    <td>
+<%=l.getNome()%> 
+</td> 
+<td>
+<%=l.getPotere()%>
+</td>
+<td>
+<%=l.getCosto()%>
+</td> 
+<td>
+<%=l.getHP()%>
+</td> 
+<td>
+<form action="RimuoviEroe">
+<input type="submit" value="Rimuovi">
+</form></td> 
+<% } %>
+</table>
+		
 		<% } %>
-		<a href="http://localhost:8080/servlet-ortofrutta/Homepage?scelta=1"
-			onMouseOver="self.status=document.referrer;return true"> Torna
-			indietro</a>
-
+		<form action="SceltaAdmin">
+		<input type="submit" name="azione" value="Torna indietro">
+		
+		</form>
 	</div>
 </body>
 </html>

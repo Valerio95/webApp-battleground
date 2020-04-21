@@ -59,10 +59,10 @@ private boolean controlloEroe(Eroe e) {
     List<Eroe> listaEroi  =   em.createQuery("SELECT e FROM Eroe e WHERE e.nome = ?1", Eroe.class).setParameter(1,username).getResultList();    
     for(Eroe eroe: listaEroi) {
     if (eroe.getNome().equalsIgnoreCase(e.getNome())){
-      return false;
+      return true;
     }
     }
-	return true;
+	return false;
 }
   
   public String getImageString(Utente utente) throws IOException, SQLException {
