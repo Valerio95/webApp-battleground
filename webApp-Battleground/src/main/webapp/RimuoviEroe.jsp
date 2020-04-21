@@ -4,7 +4,7 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="css/Default.css" rel="stylesheet" type="text/css">
 <head>
 <meta charset="ISO-8859-1">
 <title>Rimozione eroe</title>
