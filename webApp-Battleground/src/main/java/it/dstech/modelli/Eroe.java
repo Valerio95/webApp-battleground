@@ -17,7 +17,7 @@ public class Eroe {
 	private String nome;
 	@Lob
 	@Column(columnDefinition ="LONGBLOB NOT NULL")
-    private String image;
+    private Blob image;
 	private String potere;
 	private int costo;
 	private int HP;
@@ -67,11 +67,11 @@ public class Eroe {
 		this.nome = nome;
 	}
 
-	public String getImage() {
+	public Blob getImage() {
 		return image;
 	}
 
-	public void setImage(String image) {
+	public void setImage(Blob image) {
 		this.image = image;
 	}
 

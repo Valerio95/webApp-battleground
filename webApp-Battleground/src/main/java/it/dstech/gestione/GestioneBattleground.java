@@ -65,11 +65,29 @@ private boolean controlloEroe(Eroe e) {
 	return false;
 }
   
-  public String getImageString(Utente utente) throws IOException, SQLException {
+  public String getImageUtenteString(Utente utente) throws IOException, SQLException {
 	  List<Utente> queryList  =   em.createQuery("SELECT u FROM Utente u WHERE u.username = ?1", Utente.class).setParameter(1, utente.getUsername()).getResultList();
 	  Blob immagineBlob = null;
 	  for(Utente u: queryList) {
 		immagineBlob = u.getImage();
+	  }
+	   InputStream inputStream = immagineBlob.getBinaryStream();
+	   ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+	   byte[] buffer = new byte[4096];
+	   int bytesRead = -1;
+	   while ((bytesRead = inputStream.read(buffer)) != -1) {
+	    outputStream.write(buffer, 0, bytesRead);
+	   }
+	   byte[] imageBytes = outputStream.toByteArray();
+	   String immagineString = Base64.getEncoder().encodeToString(imageBytes);
+	  return immagineString;
+  }
+  
+  public String getImageEroeString(Eroe eroe) throws IOException, SQLException {
+	  List<Eroe> queryList  =   em.createQuery("SELECT e FROM Eroe e WHERE e.nome = ?1", Eroe.class).setParameter(1, eroe.getNome()).getResultList();
+	  Blob immagineBlob = null;
+	  for(Eroe e: queryList) {
+		immagineBlob = e.getImage();
 	  }
 	   InputStream inputStream = immagineBlob.getBinaryStream();
 	   ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -90,7 +108,9 @@ private boolean controlloEroe(Eroe e) {
         em.getTransaction().commit();
     }
 
-  
+  public void rimuoviEroe() {
+	  em.createQuery("SELECT e FROM Eroe e ", Eroe.class);
+  }
   
   public List<Eroe> stampaEroi () {
     List<Eroe> listaEroi =   em.createQuery("SELECT e FROM Eroe e ", Eroe.class).getResultList();

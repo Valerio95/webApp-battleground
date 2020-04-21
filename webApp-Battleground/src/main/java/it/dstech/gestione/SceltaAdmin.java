@@ -28,7 +28,7 @@ public class SceltaAdmin extends HttpServlet{
       
         GestioneBattleground db = new GestioneBattleground();
         List<Eroe> lista = db.stampaEroi();
-        session.setAttribute("lista", lista);
+        req.setAttribute("lista", lista);
         req.getRequestDispatcher("/AggiungiEroe.jsp").forward(req, resp);
         
     } else if ("rimuovi eroe".equalsIgnoreCase(azione)) {

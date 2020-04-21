@@ -33,7 +33,7 @@ public class GestioneAccesso extends HttpServlet{
             } else {
               if(gestione.controlloUtente(utente) && gestione.attivazioneUtente(utente)) {
             	try {
-					session.setAttribute("immagineString", gestione.getImageString(utente));
+					session.setAttribute("immagineString", gestione.getImageUtenteString(utente));
 					req.getRequestDispatcher("/ProfiloUtente.jsp").forward(req, resp);
 				} catch (IOException | SQLException e) {
 					e.printStackTrace();
