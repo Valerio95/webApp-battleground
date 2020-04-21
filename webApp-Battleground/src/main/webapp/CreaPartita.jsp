@@ -23,15 +23,15 @@
 
 		<form action="CreazionePartita">
 			<label for="composizione">Composizione</label><br> 
-			<input type="text" id="composizione" name="composizione" value=""><br> 
+			<input type="text"  name="composizione"><br> 
 			<label for="eroe">Eroe scelto</label><br>
-			<input type="text" id="eroe" name="eroe" value=""><br>
-			<label for="risultato">Risultato</label><br> 
-			<input type="text" id="risultato" name="risultato" value=""><br>
+			<input type="text"  name="eroe"><br>
+			<label for="risultato">Posizione finale</label><br> 
+			<input type="number" name="PosizioneFinale"><br>
 			<label for="note">Note</label><br> 
-			<input type="text" id="note" name="note" value=""><br> 
+			<input type="text" name="note"><br> 
 			<label for="rating">Rating</label><br> 
-			<input type="text" id="rating" name="rating" value=""><br>
+			<input type="number" name="rating" ><br>
 			<input type="submit" value="Aggiungi"> 
 			<input type="reset">
 		</form>

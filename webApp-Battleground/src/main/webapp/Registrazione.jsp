@@ -22,7 +22,7 @@
 				<h3>Inserisci le tue credenziali:</h3>
 
 
-				<form action= "Registrati" method="post">
+				<form action= "Registrati" method="post" enctype="multipart/form-data">
 
 					<b><label for="username">Username:</label><br></b>
 		  			<input2><input type="text" name="username" placeholder="E-mail"></input2><br>
@@ -31,7 +31,7 @@
 		  			<input2><input type="password" name="password" placeholder="Password"></input2><br>
 		  			<br>
 		  			<b><label for="password">Immagine:</label><br></b>
-		  			<input type="image" name="image" >
+		  			<input type="file" name="image" >
 		  			<br>
 					<br><button><input type="submit" class="button" name="scelta" value="Sign In" /></button>
 				</form>

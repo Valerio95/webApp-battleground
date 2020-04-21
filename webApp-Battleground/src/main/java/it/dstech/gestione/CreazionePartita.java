@@ -1,21 +1,16 @@
 package it.dstech.gestione;
 
 import java.io.IOException;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import it.dstech.modelli.Eroe;
 import it.dstech.modelli.Partita;
-import it.dstech.modelli.Utente;
-@WebServlet(urlPatterns = "/CreazioneEroe")
-public class CreazioneEroe extends HttpServlet {
+
+public class CreazionePartita extends HttpServlet{
 	@Override
 	  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	    req.setAttribute("messaggio", "Pagina non accessibile");
@@ -24,16 +19,17 @@ public class CreazioneEroe extends HttpServlet {
 
 	  @Override
 	  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	    Eroe eroe= new Eroe();
-	    eroe.setNome(req.getParameter("Nome"));
-      eroe.setPotere(req.getParameter("potere"));
-      eroe.setCosto(Integer.parseInt(req.getParameter("costo")));
-      eroe.setHP(Integer.parseInt(req.getParameter("HP")));
-      System.out.println(eroe);
+	    Partita partita= new Partita();
+	    partita.setComposizione(req.getParameter("composizine"));
+        partita.setEroeScelto(req.getParameter("eroe"));
+        partita.setNote(req.getParameter("note"));
+        partita.setRating(Integer.parseInt(req.getParameter("rating")));
 	    HttpSession session = req.getSession();
-	    session.setAttribute("eroe", eroe);    
+	    session.setAttribute("partita", partita);    
 	    GestioneBattleground gestione = new GestioneBattleground();
-	    gestione.creazioneEroe(eroe);
-	    req.getRequestDispatcher("AggiungiEroe.jsp").forward(req, resp);
+	    
+	    gestione.creazionePartita(partita);
+	    
 	  }
+
 }

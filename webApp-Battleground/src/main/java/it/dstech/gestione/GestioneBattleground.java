@@ -42,20 +42,25 @@ public class GestioneBattleground {
   public void close() {
     em.close();
   }
-  public boolean creazioneEroe(Eroe e) {
-    String username = e.getNome();
+  public void creazioneEroe(Eroe e)throws NoResultException {
+   if(!controlloEroe(e)) {
+         
+        em.getTransaction().begin();
+        em.persist(e);
+        em.getTransaction().commit();
+   }
+    }
+
+private boolean controlloEroe(Eroe e) {
+	String username = e.getNome();
     List<Eroe> listaEroi  =   em.createQuery("SELECT e FROM Eroe e WHERE e.nome = ?1", Eroe.class).setParameter(1,username).getResultList();    
     for(Eroe eroe: listaEroi) {
     if (eroe.getNome().equalsIgnoreCase(e.getNome())){
       return false;
     }
     }
-         
-        em.getTransaction().begin();
-        em.persist(e);
-        em.getTransaction().commit();
-        return true;
-    }
+	return true;
+}
   
   
   

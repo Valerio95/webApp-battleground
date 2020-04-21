@@ -2,8 +2,11 @@ package it.dstech.modelli;
 
 import java.sql.Blob;
 import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 
@@ -12,15 +15,26 @@ public class Eroe {
 	
 	@Id
 	private String nome;
-	private Blob image;
+	@Lob
+	@Column(columnDefinition ="LONGBLOB NOT NULL")
+    private String image;
 	private String potere;
 	private int costo;
-	
+	private int HP;
+
 
 	
 	@OneToMany
 	private List<Utente> utenti;
 	
+	public int getHP() {
+		return HP;
+	}
+
+	public void setHP(int hP) {
+		HP = hP;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -53,11 +67,11 @@ public class Eroe {
 		this.nome = nome;
 	}
 
-	public Blob getImage() {
+	public String getImage() {
 		return image;
 	}
 
-	public void setImage(Blob image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 
@@ -74,4 +88,11 @@ public class Eroe {
 
 	public Eroe() {
 	}
+
+	@Override
+	public String toString() {
+		return "Eroe [nome=" + nome + ", image=" + image + ", potere=" + potere + ", costo=" + costo + ", HP=" + HP
+				+ ", utenti=" + utenti + "]";
+	}
+	
 }

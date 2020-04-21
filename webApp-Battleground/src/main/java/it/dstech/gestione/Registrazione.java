@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import javax.mail.MessagingException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import it.dstech.utility.EmailUtility;
 
 
 @WebServlet(urlPatterns = "/Registrati")
+@MultipartConfig
 public class Registrazione extends HttpServlet {
   private static final long serialVersionUID = 1L;
   
@@ -36,16 +38,13 @@ public class Registrazione extends HttpServlet {
     HttpSession session = req.getSession();
     
     Part image = req.getPart("image");
-    InputStream f= image.getInputStream();
-    byte[] imageBytes = new byte[ (int)image.getSize()];
-    f.read(imageBytes,0,imageBytes.length);
-    f.close();
-    String imageStr = Base64.getEncoder().encodeToString(imageBytes);
+    InputStream immagine= image.getInputStream();
+    
     
     Utente u = new Utente();
     u.setPassword(password);
     u.setUsername(username);
-    u.setImage(imageStr);
+    u.setImage(immagine);
     session.setAttribute("utente", u);
     
     if(controlloUsername(u.getUsername())) {
