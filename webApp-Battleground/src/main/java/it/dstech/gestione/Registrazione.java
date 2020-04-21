@@ -1,5 +1,6 @@
 package it.dstech.gestione;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
@@ -38,13 +39,20 @@ public class Registrazione extends HttpServlet {
     HttpSession session = req.getSession();
     
     Part image = req.getPart("image");
-    InputStream immagine= image.getInputStream();
-    
+    InputStream f= image.getInputStream();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+	byte[] buffer = new byte[4096];
+	int bytesRead = -1;
+	while ((bytesRead = f.read(buffer)) != -1) {
+		outputStream.write(buffer, 0, bytesRead);
+	}
+	byte[] imageBytes = outputStream.toByteArray();
+	String base64Image = Base64.getEncoder().encodeToString(imageBytes);
     
     Utente u = new Utente();
     u.setPassword(password);
     u.setUsername(username);
-    u.setImage(immagine);
+    u.setImage(base64Image);
     session.setAttribute("utente", u);
     
     if(controlloUsername(u.getUsername())) {
