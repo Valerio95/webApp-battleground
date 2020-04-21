@@ -36,7 +36,7 @@ public class Utente {
       this.password = password;
     }
 
-    public Utente(String username, String password, boolean active, int rating, String image) {
+    public Utente(String username, String password, boolean active, int rating, Blob image) {
       super();
       this.username = username;
       this.password = password;
