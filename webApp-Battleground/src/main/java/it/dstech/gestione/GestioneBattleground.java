@@ -140,6 +140,15 @@ private boolean controlloEroe(Eroe e) {
 	  }
   
   
+  public void modificaEroe(Eroe e) {
+	  em.getTransaction().begin();
+      Query query = em.createQuery("UPDATE Eroe e SET e.potere =  :potere " + "WHERE e.nome = :nome");
+      query.setParameter("potere", e.getPotere());
+      query.setParameter("nome", e.getNome());
+      int rowsUpdated = query.executeUpdate();
+      System.out.println("entities Updated: " + rowsUpdated);
+      em.getTransaction().commit();
+  }
   public List<Eroe> stampaEroi () {
     List<Eroe> listaEroi =   em.createQuery("SELECT e FROM Eroe e ", Eroe.class).getResultList();
     return listaEroi;

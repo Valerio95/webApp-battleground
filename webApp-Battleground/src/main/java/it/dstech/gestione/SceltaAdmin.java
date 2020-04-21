@@ -32,14 +32,7 @@ public class SceltaAdmin extends HttpServlet{
         req.setAttribute("lista", lista);
         req.getRequestDispatcher("/AggiungiEroe.jsp").forward(req, resp);
         
-    } else if ("rimuovi eroe".equalsIgnoreCase(azione)) {
-      
-      GestioneBattleground db = new GestioneBattleground();
-      List<Eroe> lista = db.stampaEroi();
-      req.setAttribute("lista", lista);
-      req.getRequestDispatcher("/RimuoviEroe.jsp").forward(req, resp);
-      
-    } else if ("aggiungi composizione".equalsIgnoreCase(azione)) {
+    }  else if ("aggiungi composizione".equalsIgnoreCase(azione)) {
       
       GestioneBattleground db = new GestioneBattleground();
       List<Composizione> lista = db.stampaComposizioni();
@@ -53,6 +46,13 @@ public class SceltaAdmin extends HttpServlet{
       session.setAttribute("lista", lista);
       req.getRequestDispatcher("/RimuoviComposizione.jsp").forward(req, resp);
     }
+    else if ("gestione eroe".equalsIgnoreCase(azione)) {
+        
+        GestioneBattleground db = new GestioneBattleground();
+        List<Eroe> lista = db.stampaEroi();
+        req.setAttribute("lista", lista);
+        req.getRequestDispatcher("/GestioneEroe.jsp").forward(req, resp);
+      }
     else if ("torna indietro".equalsIgnoreCase(azione)) {
         
         
