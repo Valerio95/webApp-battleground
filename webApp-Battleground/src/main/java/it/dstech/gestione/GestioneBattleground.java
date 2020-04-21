@@ -12,6 +12,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+
+import com.mysql.cj.Session;
+
 import it.dstech.modelli.Composizione;
 import it.dstech.modelli.Eroe;
 import it.dstech.modelli.Partita;
@@ -109,10 +112,12 @@ private boolean controlloEroe(Eroe e) {
     }
 
   public void rimuoviEroe(String nome) {
-	 Query query = em.createQuery("DELETE  FROM Eroe  where nome = ?1").setParameter(1, nome);
+	 Query query = em.createQuery("DELETE Eroe WHERE nome = ?1").setParameter(1, nome);
 	 em.getTransaction().begin();
-     query.executeUpdate();
+     int result = query.executeUpdate();
+     if(result!=0) {System.out.println("che bello");} else {System.out.println("che brutto");}
      em.getTransaction().commit();
+     
   }
   
   public List<Eroe> stampaEroi () {

@@ -21,15 +21,13 @@ public class RimozioneEroe extends HttpServlet {
 
 	  @Override
 	  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		  String eroe= (String) req.getAttribute("eroe");
-		  System.out.println(eroe);
+		  String nomeEroe= (String) req.getParameter("eroeDaRimuovere");
+		  System.out.println("Questo è il nome dell'eroe da eliminare "+nomeEroe);
 		  GestioneBattleground gestione = new GestioneBattleground();
-		  gestione.rimuoviEroe(eroe);
-		List<Eroe> listaEroi= gestione.stampaEroi();
-		req.setAttribute("lista", listaEroi);
-		    req.getRequestDispatcher("/RimuoviEroe.jsp").forward(req, resp);
+		  gestione.rimuoviEroe(nomeEroe);
+		  List<Eroe> listaEroi= gestione.stampaEroi();
+		  req.setAttribute("lista", listaEroi);
+		  req.getRequestDispatcher("/RimuoviEroe.jsp").forward(req, resp);
 
 	  }
-	
-
 }

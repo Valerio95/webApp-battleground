@@ -46,33 +46,24 @@ HP</td>
 Immagine eroe</td>    
 
   
-<% for(Eroe l : listaEroi){%>
+<% for(Eroe l : listaEroi){
+	String nomeEroe = l.getNome();
+%>
 
 <tr>
 
-    <td>
-<%=l.getNome()%> 
-</td> 
-<td>
-<%=l.getPotere()%>
-</td>
-<td>
-<%=l.getCosto()%>
-</td> 
-<td>
-<%=l.getHP()%>
-</td> 
-<td>
+    <td><%=l.getNome()%> </td> 
+	<td><%=l.getPotere()%></td>
+	<td><%=l.getCosto()%></td> 
+	<td><%=l.getHP()%></td> 
+	<td><img alt="immagine" src="data:image/jpg;base64,<%=gestione.getImageEroeString(l)%>"> <br></td> 
 
-<img alt="immagine" src="data:image/jpg;base64,<%=gestione.getImageEroeString(l)%>"> <br>
-
-</td> 
-<td>
-<form action="RimuoviEroe" method="post">
-<input type="text" hidden="true" name ="eroe" value=<%=l.getNome()%>><br><br>
-
-<input type="submit" value="Rimuovi">
+	<td>
+		<form action="RimuoviEroe" method="post">
+		<input type="hidden" name ="eroeDaRimuovere" value=<%=nomeEroe%>><br><br>
+		<input type="submit" value="Rimuovi">
 </form></td> 
+
 <% } %>
 </table>
 		
