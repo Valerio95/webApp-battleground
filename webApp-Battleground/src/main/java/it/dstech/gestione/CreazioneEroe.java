@@ -25,6 +25,7 @@ import it.dstech.modelli.Eroe;
 @WebServlet(urlPatterns = "/CreazioneEroe")
 @MultipartConfig
 public class CreazioneEroe extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 	@Override
 	  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	    req.setAttribute("messaggio", "Pagina non accessibile");
@@ -36,7 +37,7 @@ public class CreazioneEroe extends HttpServlet {
 		  GestioneBattleground gestione = new GestioneBattleground();
 		  HttpSession session = req.getSession();
 		  Eroe eroe= new Eroe();
-	 	    eroe.setNome(req.getParameter("nome"));
+	 	   eroe.setNome(req.getParameter("nome"));
 	       eroe.setPotere(req.getParameter("potere"));
 	       eroe.setCosto(Integer.parseInt(req.getParameter("costo")));
 	       eroe.setHP(Integer.parseInt(req.getParameter("HP")));

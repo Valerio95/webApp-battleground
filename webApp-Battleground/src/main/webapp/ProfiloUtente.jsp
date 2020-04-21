@@ -22,8 +22,9 @@
 	else {
 %>
 <% Utente utente = (Utente)session.getAttribute("utente"); %>
+<div>
 <img alt="immagine" src="data:image/jpg;base64,<%= session.getAttribute("immagineString") %>"> <br>
-
+</div>
 
 			<h1>Ecco il tuo Profilo</h1>
 

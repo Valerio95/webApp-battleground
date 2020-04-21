@@ -35,11 +35,11 @@
 		  			<label for="password">Password:</label><br>
 		  			<input type="password" name="password" placeholder="Password"><br>
 		  			
-					 <input type="submit" class="button" name="scelta" value="Log In" />
+					<input type="submit" class="button" name="scelta" value="Log In" />
 					<br>
 					<br>Non sei ancora registrato? <br>
 					<br>
-					<input type="submit" name="scelta" class="button" value="Sign In" />
+					<input type="submit" class="button" name="scelta" value="Sign In" />
 					
 				</form>
 

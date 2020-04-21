@@ -8,7 +8,6 @@ div {
 
 div::after {
   content: "";
-  background: url("https://www.vgn.it/wp-content/uploads/2019/11/Hearthstone-Battlegrounds-01.jpg");
   opacity: 0.5;
   top: 0;
   left: 0;
@@ -17,14 +16,6 @@ div::after {
   position: absolute;
   z-index: -1;   
   text-align: center;
-}
-
-
-.bottomleft {
-  position: static;
-  bottom: 8px;
-  left: 16px;
-  font-size: 18px;
 }
 
 .center {
@@ -36,11 +27,11 @@ div::after {
   font-size: 18px;
 }
 
-input {
+button {
   text-align: center;
-  background-color: #fd7e00; 
+  background-color: white; 
   border: thin;
-  color: white;
+  color: black;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -50,7 +41,7 @@ input {
   cursor: pointer;
 }
 
-input:hover {
+button:hover {
  text-align: center;
   background-color: white; 
   border: thin;

@@ -1,11 +1,11 @@
 .table {
 	font-family: arial, sans-serif;
 	border-collapse: collapse;
-	width: 70%;
+	width: 10%;
 } th, td {
   border: 1px solid black;
    text-align: center;
-	padding: 8px;
+	padding: 1px;
 }
 tr:nth-child(even) {
 	background-color: #c0c0c0;
