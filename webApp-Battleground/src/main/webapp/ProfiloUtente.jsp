@@ -4,14 +4,15 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<link href="css/Admin.css" rel="stylesheet" type="text/css">
+<link href="css/Default.css" rel="stylesheet" type="text/css">
+<link href="css/text.css" rel="stylesheet" type="text/css">
 <link href="css/table.css" rel="stylesheet" type="text/css">
 <head>
 <meta charset="ISO-8859-1">
 <title>Profilo Utente</title>
 </head>
-<body class="center">
-	<div>
+<body >
+	<div class="center">
 		<% String messaggio = (String) request.getAttribute("messaggio"); 
 	if (messaggio != null ){
 		%>
@@ -21,7 +22,7 @@
 	else {
 %>
 <% Utente utente = (Utente)session.getAttribute("utente"); %>
-<img alt="immagine" src="data:image/jpg;base64,<%= utente.getImage() %>"> <br>
+<img alt="immagine" src="data:image/jpg;base64,<%= session.getAttribute("immagineString") %>"> <br>
 
 
 			<h1>Ecco il tuo Profilo</h1>
@@ -32,7 +33,7 @@
 
 		Seleziona un'opzione:
 
-		<form action="SceltaUtente">
+		<form action="SceltaUtente" >
 			<br> <input type="submit" class="button" name="scelta" value="Aggiungi partita">
 			<label for="aggiungi"><B>Aggiungi una nuova partita</B></label>: aggiungi il tracker di una nuova partita che hai giocato <br> 
 			<input type="submit" class="button" name="scelta" value="Statistiche"> 

@@ -50,7 +50,8 @@ HP</td>
 <% } %>
 </table>
  <h1>Inserisci le caratteristiche dell'eroe da aggiungere</h1>
-	<form action="CreazioneEroe" method="post">
+ 
+	<form action="CreazioneEroe" method="post" >
    		Nome Eroe:<input type="text" name="Nome" /><br><br>
    		Costo Eroe:<input type="number" name="costo" /><br><br>
    		Potere eroe:<input type="text" name="potere" /><br><br>

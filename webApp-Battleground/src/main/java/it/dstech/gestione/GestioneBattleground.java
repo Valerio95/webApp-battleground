@@ -1,18 +1,21 @@
 package it.dstech.gestione;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.Base64;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-
 import it.dstech.modelli.Composizione;
 import it.dstech.modelli.Eroe;
 import it.dstech.modelli.Partita;
 import it.dstech.modelli.Utente;
-
-
 
 
  
@@ -32,12 +35,12 @@ public class GestioneBattleground {
   }
   
   public  void creazioneUtente(Utente u)throws NoResultException {
-    if(!controlloUtente(u)) {
-      em.getTransaction().begin();
+    if(!controlloUtente(u)) {	
+       	  em.getTransaction().begin();
           em.persist(u);
           em.getTransaction().commit();  
     }
-    }
+  }
   
   public void close() {
     em.close();
@@ -48,8 +51,8 @@ public class GestioneBattleground {
         em.getTransaction().begin();
         em.persist(e);
         em.getTransaction().commit();
+   	}
    }
-    }
 
 private boolean controlloEroe(Eroe e) {
 	String username = e.getNome();
@@ -62,7 +65,23 @@ private boolean controlloEroe(Eroe e) {
 	return true;
 }
   
-  
+  public String getImageString(Utente utente) throws IOException, SQLException {
+	  List<Utente> queryList  =   em.createQuery("SELECT u FROM Utente u WHERE u.username = ?1", Utente.class).setParameter(1, utente.getUsername()).getResultList();
+	  Blob immagineBlob = null;
+	  for(Utente u: queryList) {
+		immagineBlob = u.getImage();
+	  }
+	   InputStream inputStream = immagineBlob.getBinaryStream();
+	   ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+	   byte[] buffer = new byte[4096];
+	   int bytesRead = -1;
+	   while ((bytesRead = inputStream.read(buffer)) != -1) {
+	    outputStream.write(buffer, 0, bytesRead);
+	   }
+	   byte[] imageBytes = outputStream.toByteArray();
+	   String immagineString = Base64.getEncoder().encodeToString(imageBytes);
+	  return immagineString;
+  }
   
   public void creazionePartita(Partita p) {
          

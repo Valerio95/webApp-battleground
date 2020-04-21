@@ -4,7 +4,6 @@ package it.dstech.modelli;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,7 +20,7 @@ public class Utente {
     private int rating = 0;
     @Lob
     @Column(columnDefinition ="LONGBLOB NOT NULL")
-    private String image;
+    private Blob image;
     
     @OneToMany
     List<Eroe> listaEroe = new ArrayList<Eroe>();
@@ -43,7 +42,7 @@ public class Utente {
       this.password = password;
       this.active = active;
       this.rating = rating;
-      //this.image = image;
+      this.image = image;
     }
 
     public String getUsername() {
@@ -78,15 +77,15 @@ public class Utente {
       this.rating = rating;
     }
 
-    public String getImage() {
-      return image;
-    }
+	public Blob getImage() {
+		return image;
+	}
 
-    public void setImage(String image) {
-      this.image = image;
-    }
+	public void setImage(Blob image) {
+		this.image = image;
+	}
 
-    @Override
+	@Override
     public String toString() {
       return "Utente [username=" + username + ", password=" + password + ", active=" + active + ", rating="
           + rating + "]";

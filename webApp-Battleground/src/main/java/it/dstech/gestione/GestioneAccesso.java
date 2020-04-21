@@ -1,6 +1,8 @@
 package it.dstech.gestione;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,11 +18,12 @@ public class GestioneAccesso extends HttpServlet{
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-HttpSession session =req.getSession();
+	  HttpSession session =req.getSession();
 
-    Utente utente = new Utente( req.getParameter("username"),  req.getParameter("password"));
-    String scelta = req.getParameter("scelta");
-    session.setAttribute("utente", utente);
+	  Utente utente = new Utente( req.getParameter("username"),  req.getParameter("password"));
+	  String scelta = req.getParameter("scelta");
+	  session.setAttribute("utente", utente);
+    
         GestioneBattleground gestione=new GestioneBattleground();
         if (scelta.equalsIgnoreCase("Log In")) {
           if (utente.getUsername().equalsIgnoreCase("") || utente.getPassword().equalsIgnoreCase("") || utente.getPassword()==null||utente.getUsername()==null){
@@ -30,7 +33,12 @@ HttpSession session =req.getSession();
             req.getRequestDispatcher("/ProfiloAdmin.jsp").forward(req, resp);
             } else {
               if(gestione.controlloUtente(utente) && gestione.attivazioneUtente(utente)) {
-                req.getRequestDispatcher("/ProfiloUtente.jsp").forward(req, resp);
+            	try {
+					session.setAttribute("immagineString", gestione.getImageString(utente));
+					req.getRequestDispatcher("/ProfiloUtente.jsp").forward(req, resp);
+				} catch (IOException | SQLException e) {
+					e.printStackTrace();
+				}
                 } else if(!gestione.attivazioneUtente(utente) && gestione.controlloUtente(utente)) {
                 req.setAttribute("messaggio", "Per effettuare l'accesso attiva il tuo account cliccando sul link dell'email che ti abbiamo inviato.");
               req.getRequestDispatcher("/Homepage.jsp").forward(req, resp);
