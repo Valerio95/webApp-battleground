@@ -15,9 +15,13 @@ public class SceltaUtente extends HttpServlet {
 
         if(req.getParameter("scelta").equalsIgnoreCase("Aggiungi partita")) {
           req.getRequestDispatcher("/CreaPartita.jsp").forward(req, resp);
-        } else {
+        } else if (req.getParameter("scelta").equalsIgnoreCase("Statistiche")){
           req.getRequestDispatcher("/Statistiche.jsp").forward(req, resp);
           
-        }
+        }else if (req.getParameter("scelta").equalsIgnoreCase("RimuoviAccount")) {
+        	
+            req.getRequestDispatcher("/RimuoviUtente.jsp").forward(req, resp);
+            
+          }
       }
   }

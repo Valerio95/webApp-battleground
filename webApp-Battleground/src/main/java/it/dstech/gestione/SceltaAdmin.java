@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import it.dstech.modelli.Composizione;
 import it.dstech.modelli.Eroe;
+import it.dstech.modelli.Utente;
 
 @WebServlet(urlPatterns = "/SceltaAdmin")
 public class SceltaAdmin extends HttpServlet{
@@ -51,7 +52,8 @@ public class SceltaAdmin extends HttpServlet{
       List<Composizione> lista = db.stampaComposizioni();
       session.setAttribute("lista", lista);
       req.getRequestDispatcher("/RimuoviComposizione.jsp").forward(req, resp);
-    } else if ("torna indietro".equalsIgnoreCase(azione)) {
+    }
+    else if ("torna indietro".equalsIgnoreCase(azione)) {
         
         
         req.getRequestDispatcher("/ProfiloAdmin.jsp").forward(req, resp);

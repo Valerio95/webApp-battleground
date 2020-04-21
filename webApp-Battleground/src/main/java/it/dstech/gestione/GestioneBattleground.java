@@ -120,6 +120,26 @@ private boolean controlloEroe(Eroe e) {
      
   }
   
+  public void rimuoviComposizione(String nome) {
+		 Query query = em.createQuery("DELETE Composizione WHERE nome = ?1").setParameter(1, nome);
+		 em.getTransaction().begin();
+	     int result = query.executeUpdate();
+	     if(result!=0) {System.out.println("che bello");} else {System.out.println("che brutto");}
+	     em.getTransaction().commit();
+	     
+	  }
+  
+  
+  public void rimuoviUtente(String nome) {
+		 Query query = em.createQuery("DELETE Utente WHERE username = ?1").setParameter(1, nome);
+		 em.getTransaction().begin();
+	     int result = query.executeUpdate();
+	     if(result!=0) {System.out.println("che bello");} else {System.out.println("che brutto");}
+	     em.getTransaction().commit();
+	     
+	  }
+  
+  
   public List<Eroe> stampaEroi () {
     List<Eroe> listaEroi =   em.createQuery("SELECT e FROM Eroe e ", Eroe.class).getResultList();
     return listaEroi;

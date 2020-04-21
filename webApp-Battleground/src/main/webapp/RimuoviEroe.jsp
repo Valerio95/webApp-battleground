@@ -68,7 +68,7 @@ Immagine eroe</td>
 </table>
 		
 		<% } %>
-		<form action="SceltaAdmin">
+		<form action="SceltaAdmin" method="post">
 		<input type="submit" name="azione" value="Torna indietro">
 		
 		</form>

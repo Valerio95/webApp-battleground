@@ -39,6 +39,9 @@
 			<label for="aggiungi"><B>Aggiungi una nuova partita</B></label>: aggiungi il tracker di una nuova partita che hai giocato <br> 
 			<input type="submit" class="button" name="scelta" value="Statistiche"> 
 			<label for="statistiche"><B>Statistiche</B></label>: qui puoi vedere lo storico aggiornato delle tue partite<br>
+			<input type="submit" class="button" name="scelta" value="RimuoviAccount"> 
+			<label for="rimuovi"><B>Rimuovi il tuo account</B></label>
+			
 		</form>
 		
 		<% } %>
