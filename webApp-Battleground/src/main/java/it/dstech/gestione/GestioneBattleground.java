@@ -108,8 +108,11 @@ private boolean controlloEroe(Eroe e) {
         em.getTransaction().commit();
     }
 
-  public void rimuoviEroe() {
-	  em.createQuery("SELECT e FROM Eroe e ", Eroe.class);
+  public void rimuoviEroe(String nome) {
+	 Query query = em.createQuery("DELETE  FROM Eroe  where nome = ?1").setParameter(1, nome);
+	 em.getTransaction().begin();
+     query.executeUpdate();
+     em.getTransaction().commit();
   }
   
   public List<Eroe> stampaEroi () {
