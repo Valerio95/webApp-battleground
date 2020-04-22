@@ -15,7 +15,7 @@ import javax.servlet.http.Part;
 import it.dstech.modelli.Eroe;
 import it.dstech.modelli.Utente;
 
-@WebServlet(urlPatterns = "/GestioneEroe")
+@WebServlet(urlPatterns = "/ModificaEroe")
 public class ModificaEroe extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
