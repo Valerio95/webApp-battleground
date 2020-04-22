@@ -59,8 +59,8 @@ Immagine eroe</td>
 
   <td>
     <form action="GestioneEroe" method="post">
-    <input type="hidden" name ="eroeDaRimuovere" value=<%=nomeEroe%>><br><br>
-   <% session.setAttribute("eroe", l); %>
+    <input type="hidden" name ="eroeDaRimuovere" value="<%=nomeEroe%>"><br><br>
+   
    <input type="submit" name="scelta" value="Modifica">
     <input type="submit" name="scelta" value="Rimuovi">
 </form></td> 

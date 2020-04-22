@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="center">
-<%Eroe eroe = (Eroe) session.getAttribute("eroe"); %>
+<%Eroe eroe = (Eroe) request.getAttribute("eroe"); %>
 <%GestioneBattleground gestione = new GestioneBattleground(); %>
 
 
@@ -19,7 +19,7 @@
  
 	<form action="CreazioneEroe" method="post" >
 	<label for="nome">Nome Eroe:</label><br>
-   	<input type="text" class="button" name="nome"  placeholder=<%=eroe.getNome() %>/><br>
+   	<input type="text" class="button" name="nome"  placeholder="<%=eroe.getNome()%>"/><br>
    		<p>Costo Eroe: <select name="costo">
          <%for(int i=0;i<=3;i++){%>
          <option value=<%=i%> > <%=i%>

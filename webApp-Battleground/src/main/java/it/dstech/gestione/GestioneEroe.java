@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import it.dstech.modelli.Eroe;
 
@@ -32,9 +31,11 @@ public class GestioneEroe extends HttpServlet {
 		 gestione.rimuoviEroe(nomeEroe);
 		  List<Eroe> listaEroi= gestione.stampaEroi();
 		  req.setAttribute("lista", listaEroi);
-		  req.getRequestDispatcher("/RimuoviEroe.jsp").forward(req, resp);
+		  req.getRequestDispatcher("/GestioneEroe.jsp").forward(req, resp);
 		 }else if(scelta.equalsIgnoreCase("modifica")) {
 			 List<Eroe> lista = gestione.stampaEroi();
+			Eroe eroe= gestione.getEroe(nomeEroe);
+			  req.setAttribute("eroe", eroe);
 			  req.setAttribute("lista", lista);
 			  req.getRequestDispatcher("/ModificaEroe.jsp").forward(req, resp);
 		 }

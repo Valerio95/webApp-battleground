@@ -35,7 +35,7 @@
    		
    	<input type="file" name="image" placeholder="Inserisci l'immagine dell'eroe"><br>   
 	<br><input type="submit" class = "button"  name ="azione" value="Aggiungi">
-    <input type="submit" name="azione" value="Torna indietro">
+   
 
 
 			
@@ -67,7 +67,9 @@
 </form>
 </div>
 
-
+<form action="SceltaAdmin">
+ <input type="submit" name="azione" value="Torna indietro">
+ </form>
 
 		
 </body>

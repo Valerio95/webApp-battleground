@@ -56,8 +56,15 @@ public class GestioneBattleground {
         em.getTransaction().commit();
    	}
    }
+  
+  public Eroe getEroe(String nome) {
+		
+	    Eroe eroe  =   em.createQuery("SELECT e FROM Eroe e WHERE e.nome = ?1", Eroe.class).setParameter(1,nome).getSingleResult();    
+	   
+		return eroe;
+	}
 
-private boolean controlloEroe(Eroe e) {
+public boolean controlloEroe(Eroe e) {
 	String username = e.getNome();
     List<Eroe> listaEroi  =   em.createQuery("SELECT e FROM Eroe e WHERE e.nome = ?1", Eroe.class).setParameter(1,username).getResultList();    
     for(Eroe eroe: listaEroi) {
@@ -149,10 +156,14 @@ private boolean controlloEroe(Eroe e) {
       System.out.println("entities Updated: " + rowsUpdated);
       em.getTransaction().commit();
   }
+  
+  
   public List<Eroe> stampaEroi () {
     List<Eroe> listaEroi =   em.createQuery("SELECT e FROM Eroe e ", Eroe.class).getResultList();
     return listaEroi;
   }
+  
+  
   
   public List<Partita> stampaPartite () {
     List<Partita> listaPartite =   em.createQuery("SELECT p FROM Partita p ", Partita.class).getResultList();
