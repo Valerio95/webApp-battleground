@@ -22,9 +22,9 @@
 		<% }
 	else {
 %>
-<%List<Partita> listaPartite = (List<Partita>)request.getAttribute("lista"); %>
-<%List<Composizione> listaComposizioni = (List<Composizione>)request.getAttribute("lista"); %>
-<%List<Eroe> listaEroi = (List<Eroe>)request.getAttribute("lista"); %>
+<%List<Partita> listaPartite = (List<Partita>)request.getAttribute("listaPartite"); %>
+<%List<Composizione> listaComposizioni = (List<Composizione>)request.getAttribute("listaComposizioni"); %>
+<%List<Eroe> listaEroi = (List<Eroe>)request.getAttribute("listaEroi"); %>
 		Inserisci i risultati della partita da aggiungere al tracker:
 
 		<form action="/CreazionePartita" method="post">
@@ -77,10 +77,10 @@
 
 		<% } %>
 
-		<a href="http://localhost:8080/servlet-ortofrutta/Homepage?scelta=1"
-			onMouseOver="self.status=document.referrer;return true"> Torna
-			indietro</a>
+		<form action="SceltaUtente">
+		<input type="submit" name="scelta" value="Torna indietro"> 
 
+		</form>
 
 	</div>
 </body>
