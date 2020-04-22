@@ -11,26 +11,27 @@
 </head>
 <body>
 <div class="center">
-<%Eroe eroe = (Eroe) request.getAttribute("eroe"); %>
+<%Eroe eroe = (Eroe) session.getAttribute("eroe");%>
 <%GestioneBattleground gestione = new GestioneBattleground(); %>
 
 
  <h1>Inserisci le caratteristiche dell'eroe da aggiungere</h1>
  
-	<form action="CreazioneEroe" method="post" >
+	<form action="ModificaEroe" method="post" >
 	<label for="nome">Nome Eroe:</label><br>
    	<input type="text" class="button" name="nome"  placeholder="<%=eroe.getNome()%>"/><br>
    		<p>Costo Eroe: <select name="costo">
          <%for(int i=0;i<=3;i++){%>
-         <option value=<%=i%> > <%=i%>
+         <option value="" disabled selected><%=eroe.getCosto()%></option>
+         <option value=<%=i%>> <%=i%>
          <% } %>
         </select></p>
-     <label for="potere">PotereEroe:</label><br>
-     <input type="text" class="button" name="potere" /><br><br>
-   	 <label for="hp">HP Eroe:</label><br>
-   	 <input type="number" class="button" name="HP" /><br><br>
-   		
+    <label for="potere">PotereEroe:</label><br>
+    <input type="text" class="button" name="potere" placeholder="<%=eroe.getPotere()%>" /><br><br>
+   	<label for="hp">HP Eroe:</label><br>
+   	<input type="number" class="button" name="HP" placeholder="<%=eroe.getHP()%>" /><br><br>	
    	<input type="file" name="image" placeholder="Inserisci l'immagine dell'eroe"><br>   
+	
 	<br><input type="submit" class = "button"  name ="azione" value="Aggiungi">
     <input type="submit" name="azione" value="Torna indietro">	
 </form>

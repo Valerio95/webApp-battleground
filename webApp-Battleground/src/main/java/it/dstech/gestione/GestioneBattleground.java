@@ -7,11 +7,19 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Base64;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.servlet.http.Part;
+import javax.sql.rowset.serial.SerialBlob;
+import javax.sql.rowset.serial.SerialException;
+
+import org.apache.commons.io.IOUtils;
 
 import com.mysql.cj.Session;
 
@@ -45,9 +53,12 @@ public class GestioneBattleground {
     }
   }
   
+  
   public void close() {
     em.close();
   }
+  
+  
   public void creazioneEroe(Eroe e)throws NoResultException {
    if(!controlloEroe(e)) {
          
@@ -179,36 +190,73 @@ public class GestioneBattleground {
   
   
   public void validaUtente(Utente u) {
-        Query query = em.createQuery("SELECT u FROM Utente u WHERE u.username = ?1", Utente.class).setParameter(1, u.getUsername());
-        Utente utente = (Utente) query.getSingleResult();
-        em.getTransaction().begin();
-        utente.setActive(true);
-        em.getTransaction().commit();
-   }
+	  Query query = em.createQuery("SELECT u FROM Utente u WHERE u.username = ?1", Utente.class).setParameter(1, u.getUsername());
+	  Utente utente = (Utente) query.getSingleResult();
+	  em.getTransaction().begin();
+	  utente.setActive(true);
+	  em.getTransaction().commit();      
+  }
+	  
+  public void modificaEroe(Eroe eroeModificato, Eroe eroeDaModificare) {
+	  if(controlloEroe(eroeModificato) == false) {
+		  Eroe e = checkNull(eroeModificato, eroeDaModificare);
+		  em.getTransaction().begin();
+		  Query query = em.createQuery("UPDATE Eroe e SET e =  :eroe " + "WHERE e.nome = :nome");
+		  query.setParameter("eroe", e);
+		  query.setParameter("nome", eroeDaModificare.getNome());
+		  query.executeUpdate();
+		  em.getTransaction().commit();
+	  }
+  }
+	
+  public Eroe checkNull(Eroe nuovoEroe, Eroe vecchioEroe) {
+	  Eroe e = new Eroe();
+	  if(nuovoEroe.getNome() == null) {
+		  e.setNome(vecchioEroe.getNome());
+	  } else if(nuovoEroe.getPotere() == null) {
+		  e.setNome(vecchioEroe.getPotere());
+	  } else if(vecchioEroe.getCosto()!=0 && nuovoEroe.getCosto()==0) {
+		  e.setCosto(vecchioEroe.getCosto());
+	  } else if(vecchioEroe.getHP()!=0 && nuovoEroe.getHP()==0) {
+		  e.setHP(vecchioEroe.getHP());
+	  } else if(nuovoEroe.getImage() == null) {
+		  e.setImage(vecchioEroe.getImage());
+	  }
+	  return  e;
+  }
   
-  	public void modificaEroe(Eroe eroeModificato, String nomeEroeDaModificare) {
-  		  Eroe eroeDaModificare = getEroe(nomeEroeDaModificare);
-  		  Eroe e = checkNull(eroeModificato, eroeDaModificare);
-	      em.getTransaction().begin();
-	      Query query = em.createQuery("UPDATE Eroe e SET e =  :potere " + "WHERE e.nome = :nome");
-	      query.setParameter("nome", e.getNome());
-	      query.setParameter("potere", e.getPotere());
-	      query.setParameter("costo", e.getCosto());
-	      query.setParameter("HP", e.getHP());
-	      query.setParameter("image", e.getImage());
-	      query.setParameter("nome", eroeDaModificare.getNome());
-	      query.executeUpdate();
-	      em.getTransaction().commit();
-	 }
+  public Blob conversionePartToBlob(Part image) throws IOException, SerialException, SQLException {
+  	InputStream immagine =image.getInputStream();
+  	Blob blob = null;
+  	byte[] content = IOUtils.toByteArray(immagine);
+  	blob = new SerialBlob(content);
+  	return blob;
+  }
 
-   public Eroe checkNull(Eroe nuovoEroe, Eroe vecchioEroe) {
-	   Eroe e = new Eroe();
-	   return  e;
-   }
-  	
-   public boolean attivazioneUtente(Utente u) {
-	 Query query = em.createQuery("SELECT u FROM Utente u WHERE u.username = ?1", Utente.class).setParameter(1, u.getUsername());
-     Utente utente = (Utente) query.getSingleResult();
-     return utente.isActive();
-   }
+
+  public String conversionePartToString(Part image) throws IOException {
+    InputStream f= image.getInputStream();
+    byte[] imageBytes = new byte[ (int)image.getSize()];
+    f.read(imageBytes,0,imageBytes.length);
+    f.close();
+    String imageStr = Base64.getEncoder().encodeToString(imageBytes);
+    return imageStr;
+  }
+
+
+  public boolean controlloUsername(String username) {
+	  String regex = "/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g";
+	  Pattern pattern = Pattern.compile(regex);
+	  Matcher matcher = pattern.matcher(username);
+	  if(matcher.matches()) {
+		  return true;
+	  }
+	  return false;
+  }
+
+  public boolean attivazioneUtente(Utente u) {
+	  Query query = em.createQuery("SELECT u FROM Utente u WHERE u.username = ?1", Utente.class).setParameter(1, u.getUsername());
+	  Utente utente = (Utente) query.getSingleResult();
+	  return utente.isActive();
+  }
 }
