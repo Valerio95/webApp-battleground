@@ -22,7 +22,7 @@ public class GestioneEroe extends HttpServlet {
 
 	  @Override
 	  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		  String scelta =(String) req.getAttribute("scelta");
+		  String scelta =(String) req.getParameter("scelta");
 		  String nomeEroe= (String) req.getParameter("eroeDaRimuovere");
 		  
 		  
