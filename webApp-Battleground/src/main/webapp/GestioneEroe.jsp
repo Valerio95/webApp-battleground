@@ -51,7 +51,7 @@ Immagine eroe</td>
 
 <tr>
 
-    <td><%=l.getNome()%> </td> 
+  <td><%=l.getNome()%> </td> 
   <td><%=l.getPotere()%></td>
   <td><%=l.getCosto()%></td> 
   <td><%=l.getHP()%></td> 
@@ -59,9 +59,9 @@ Immagine eroe</td>
 
   <td>
     <form action="GestioneEroe" method="post">
-    <input type="hidden" name ="eroeDaRimuovere" value=<%=nomeEroe%>><br><br>
-   <% session.setAttribute("eroe", l); %>
-   <input type="submit" name="scelta" value="Modifica">
+    <input type="hidden" name ="eroeDaRimuovere" value="<%=nomeEroe%>"><br><br>
+    <% session.setAttribute("eroe", l); %>
+    <input type="submit" name="scelta" value="Modifica">
     <input type="submit" name="scelta" value="Rimuovi">
 </form></td> 
 

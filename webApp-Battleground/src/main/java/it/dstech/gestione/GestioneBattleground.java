@@ -105,7 +105,6 @@ private boolean controlloEroe(Eroe e) {
   }
   
   public void creazionePartita(Partita p) {
-         
         em.getTransaction().begin();
         em.persist(p);
         em.getTransaction().commit();
@@ -120,35 +119,6 @@ private boolean controlloEroe(Eroe e) {
      
   }
   
-  public void rimuoviComposizione(String nome) {
-		 Query query = em.createQuery("DELETE Composizione WHERE nome = ?1").setParameter(1, nome);
-		 em.getTransaction().begin();
-	     int result = query.executeUpdate();
-	     if(result!=0) {System.out.println("che bello");} else {System.out.println("che brutto");}
-	     em.getTransaction().commit();
-	     
-	  }
-  
-  
-  public void rimuoviUtente(String nome) {
-		 Query query = em.createQuery("DELETE Utente WHERE username = ?1").setParameter(1, nome);
-		 em.getTransaction().begin();
-	     int result = query.executeUpdate();
-	     if(result!=0) {System.out.println("che bello");} else {System.out.println("che brutto");}
-	     em.getTransaction().commit();
-	     
-	  }
-  
-  
-  public void modificaEroe(Eroe e) {
-	  em.getTransaction().begin();
-      Query query = em.createQuery("UPDATE Eroe e SET e.potere =  :potere " + "WHERE e.nome = :nome");
-      query.setParameter("potere", e.getPotere());
-      query.setParameter("nome", e.getNome());
-      int rowsUpdated = query.executeUpdate();
-      System.out.println("entities Updated: " + rowsUpdated);
-      em.getTransaction().commit();
-  }
   public List<Eroe> stampaEroi () {
     List<Eroe> listaEroi =   em.createQuery("SELECT e FROM Eroe e ", Eroe.class).getResultList();
     return listaEroi;
@@ -180,19 +150,36 @@ private boolean controlloEroe(Eroe e) {
   
   
   public void validaUtente(Utente u) {
-
         Query query = em.createQuery("SELECT u FROM Utente u WHERE u.username = ?1", Utente.class).setParameter(1, u.getUsername());
-        
         Utente utente = (Utente) query.getSingleResult();
         em.getTransaction().begin();
         utente.setActive(true);
         em.getTransaction().commit();
+   }
+  
+  	public void modificaEroe(Eroe eroeModificato, String nomeEroeDaModificare) {
+  		  Eroe eroeDaModificare = getEroe(nomeEroeDaModificare);
+  		  Eroe e = checkNull(eroeModificato, eroeDaModificare);
+	      em.getTransaction().begin();
+	      Query query = em.createQuery("UPDATE Eroe e SET e =  :potere " + "WHERE e.nome = :nome");
+	      query.setParameter("nome", e.getNome());
+	      query.setParameter("potere", e.getPotere());
+	      query.setParameter("costo", e.getCosto());
+	      query.setParameter("HP", e.getHP());
+	      query.setParameter("image", e.getImage());
+	      query.setParameter("nome", eroeDaModificare.getNome());
+	      query.executeUpdate();
+	      em.getTransaction().commit();
+	 }
 
-    }
-
-  public boolean attivazioneUtente(Utente u) {
-    Query query = em.createQuery("SELECT u FROM Utente u WHERE u.username = ?1", Utente.class).setParameter(1, u.getUsername());
-        Utente utente = (Utente) query.getSingleResult();
-    return utente.isActive();
-  }
+   public Eroe checkNull(Eroe nuovoEroe, Eroe vecchioEroe) {
+	   Eroe e = new Eroe();
+	   return  e;
+   }
+  	
+   public boolean attivazioneUtente(Utente u) {
+	 Query query = em.createQuery("SELECT u FROM Utente u WHERE u.username = ?1", Utente.class).setParameter(1, u.getUsername());
+     Utente utente = (Utente) query.getSingleResult();
+     return utente.isActive();
+   }
 }

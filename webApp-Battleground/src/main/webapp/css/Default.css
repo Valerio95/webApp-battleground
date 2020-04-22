@@ -9,7 +9,7 @@ div {
 div::after {
   content: "";
   background: url("https://www.vgn.it/wp-content/uploads/2019/11/Hearthstone-Battlegrounds-01.jpg");
-  opacity: 0.5;
+  opacity: 0.7;
   top: 0;
   left: 0;
   bottom: 0;
