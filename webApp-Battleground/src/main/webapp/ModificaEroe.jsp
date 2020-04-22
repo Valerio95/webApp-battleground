@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Modifica Eroe</title>
 </head>
 <body>
 <div class="center">
@@ -15,14 +15,14 @@
 <%GestioneBattleground gestione = new GestioneBattleground(); %>
 
 
- <h1>Inserisci le caratteristiche dell'eroe da aggiungere</h1>
+ <h1>Inserisci le caratteristiche dell'eroe da modificare</h1>
  
 	<form action="ModificaEroe" method="post" >
 	<label for="nome">Nome Eroe:</label><br>
    	<input type="text" class="button" name="nome"  placeholder="<%=eroe.getNome()%>"/><br>
    		<p>Costo Eroe: <select name="costo">
-         <%for(int i=0;i<=3;i++){%>
          <option value="" disabled selected><%=eroe.getCosto()%></option>
+         <%for(int i=0;i<=3;i++){%>
          <option value=<%=i%>> <%=i%>
          <% } %>
         </select></p>
@@ -32,7 +32,7 @@
    	<input type="number" class="button" name="HP" placeholder="<%=eroe.getHP()%>" /><br><br>	
    	<input type="file" name="image" placeholder="Inserisci l'immagine dell'eroe"><br>   
 	
-	<br><input type="submit" class = "button"  name ="azione" value="Aggiungi">
+	<br><input type="submit" class = "button"  name ="azione" value="Modifica">
     <input type="submit" name="azione" value="Torna indietro">	
 </form>
 </div>

@@ -11,11 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-
 import it.dstech.modelli.Eroe;
-import it.dstech.modelli.Utente;
 
-@WebServlet(urlPatterns = "/GestioneEroe")
+@WebServlet(urlPatterns = "/ModificaEroe")
 public class ModificaEroe extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -31,8 +29,18 @@ public class ModificaEroe extends HttpServlet {
 		  GestioneBattleground  gestione = new GestioneBattleground();
 		  Eroe vecchioEroe = (Eroe) session.getAttribute("eroe");
 		  Eroe nuovoEroe = new Eroe(req.getParameter("nome"), req.getParameter("potere"));
-		  nuovoEroe.setCosto(Integer.parseInt(req.getParameter("costo")));
-		  nuovoEroe.setHP(Integer.parseInt(req.getParameter("HP")));
+		  if(req.getParameter("costo").equals(null)) {
+			  nuovoEroe.setCosto(0);
+		  } else {
+			  nuovoEroe.setCosto(Integer.parseInt(req.getParameter("costo")));
+		  }
+		  
+		  if(req.getParameter("HP").equals(null)) {
+			  nuovoEroe.setHP(0);
+		  } else {
+			  nuovoEroe.setHP(Integer.parseInt(req.getParameter("HP")));
+		  }
+		  
 		  Part image = req.getPart("image");  
 		  Blob imageBlob;
 		  
