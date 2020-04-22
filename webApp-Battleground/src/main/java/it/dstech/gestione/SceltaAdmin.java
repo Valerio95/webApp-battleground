@@ -36,7 +36,7 @@ public class SceltaAdmin extends HttpServlet{
       
       GestioneBattleground db = new GestioneBattleground();
       List<Composizione> lista = db.stampaComposizioni();
-      session.setAttribute("lista", lista);
+      req.setAttribute("lista", lista);
       req.getRequestDispatcher("/AggiungiComposizione.jsp").forward(req, resp);
       
     } else if ("rimuovi composizione".equalsIgnoreCase(azione)) {

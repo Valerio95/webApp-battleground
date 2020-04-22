@@ -34,7 +34,7 @@
 
 		Seleziona un'opzione:
 
-		<form action="SceltaUtente" >
+		<form action="SceltaUtente" method="post" >
 			<br> <input type="submit" class="button" name="scelta" value="Aggiungi partita">
 			<label for="aggiungi"><B>Aggiungi una nuova partita</B></label>: aggiungi il tracker di una nuova partita che hai giocato <br> 
 			<input type="submit" class="button" name="scelta" value="Statistiche"> 
