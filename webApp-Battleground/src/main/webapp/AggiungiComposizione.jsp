@@ -48,8 +48,8 @@
 
 		<% } %>
 
-		<form action="/SceltaUtente" method="post">
-		<input type="submit" name="scelta" class="button" value="Torna indietro"> 
+		<form action="SceltaAdmin" method="post">
+		<input type="submit" name="azione" class="button" value="Torna indietro"> 
 
 		</form>
 

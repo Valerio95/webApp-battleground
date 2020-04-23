@@ -201,7 +201,7 @@ public class GestioneBattleground {
   }
 	  
   public void modificaEroe(Eroe e, Eroe eroeDaModificare) {
-	  if(controlloEroe(e) == false) {
+	  if(controlloEroe(e) == true) {
 		  em.getTransaction().begin();
 		  Query query = em.createQuery("UPDATE Eroe e SET e =  :eroe " + "WHERE e.nome = :nome");
 		  query.setParameter("eroe", e);
