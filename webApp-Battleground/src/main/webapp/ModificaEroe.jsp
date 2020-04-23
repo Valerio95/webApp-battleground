@@ -21,8 +21,8 @@
  <h1>Inserisci le caratteristiche dell'eroe da modificare</h1>
  
 	<form action="ModificaEroe" method="post" enctype="multipart/form-data">
-	<label for="nome">Nome Eroe:</label><br>
-   	<input type="text" class="button" name="nome"  placeholder="<%=eroe.getNome()%>"/><br>
+	<label for="nomeEroe">Nome Eroe:</label><br>
+   	<input type="text"  name="nome"  placeholder="<%=eroe.getNome()%>"/><br>
    		<p>Costo Eroe: <select name="costo">
          <option value="" disabled selected><%=eroe.getCosto()%></option>
          <%for(int i=0;i<=3;i++){%>
@@ -30,14 +30,14 @@
          <% } %>
         </select></p>
     <label for="potere">PotereEroe:</label><br>
-    <input type="text" class="button" name="potere" placeholder="<%=eroe.getPotere()%>" /><br><br>
+    <input type="text"  name="potere" placeholder="<%=eroe.getPotere()%>" /><br><br>
    	<label for="hp">HP Eroe:</label><br>
-   	<input type="number" class="button" name="HP" placeholder="<%=eroe.getHP()%>" /><br><br>	
+   	<input type="number"  name="HP" placeholder="<%=eroe.getHP()%>" /><br><br>	
    	<input type="file" name="image" placeholder="Inserisci l'immagine dell'eroe"><br>   
-	
-	<br><input type="submit" class = "button"  name ="azione" value="Modifica">
+	<br><input type="submit" class = "button"  value="Modifica">
 </form>
-<form action="SceltaAdmin" method="post">
+
+<form action="GestioneEroe" method="post">
 <input type="submit" name="azione" value="Torna indietro">	
 </form>
 </div>

@@ -8,7 +8,7 @@
 <link href="css/text.css" rel="stylesheet" type="text/css">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Aggiungi Composizione</title>
 </head>
 <body>
 <div class="center">
@@ -48,9 +48,8 @@
 
 		<% } %>
 
-		<form action="/SceltaUtente" method="post">
-		<input type="submit" name="scelta" class="button" value="Torna indietro"> 
-
+		<form action="SceltaAdmin" method="post">
+		<input type="submit" name="azione" class="button" value="Torna indietro"> 
 		</form>
 
 	</div>

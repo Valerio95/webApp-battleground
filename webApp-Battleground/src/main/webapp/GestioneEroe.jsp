@@ -11,7 +11,7 @@
 <link href="css/table.css" rel="stylesheet" type="text/css">
 <head>
 <meta charset="ISO-8859-1">
-<title>Rimozione eroe</title>
+<title>Gestione eroe</title>
 </head>
 <body class="background">
   <div class="center">
@@ -60,8 +60,8 @@ Immagine eroe</td>
   <td>
     <form action="GestioneEroe" method="post">
     <input type="hidden" name ="eroeDaRimuovere" value="<%=nomeEroe%>"><br><br>
-    <input type="submit" name="scelta" value="Modifica">
-    <input type="submit" name="scelta" value="Rimuovi">
+    <input type="submit" name="azione" value="Modifica">
+    <input type="submit" name="azione" value="Rimuovi">
 </form></td> 
 
 <% } %>

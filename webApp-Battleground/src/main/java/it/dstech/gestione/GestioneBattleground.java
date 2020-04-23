@@ -201,7 +201,7 @@ public class GestioneBattleground {
   }
 	  
   public void modificaEroe(Eroe e, Eroe eroeDaModificare) {
-	  if(controlloEroe(e) == false) {
+	  if(controlloEroe(e) == true) {
 		  em.getTransaction().begin();
 		  Query query = em.createQuery("UPDATE Eroe e SET e =  :eroe " + "WHERE e.nome = :nome");
 		  query.setParameter("eroe", e);
@@ -214,11 +214,11 @@ public class GestioneBattleground {
   public Eroe checkNull(Eroe eroeModificato ,Eroe vecchioEroe) throws IOException, ServletException, SerialException, SQLException {
 	  
 	  Eroe e = new Eroe();
-	 
+
 	  if(eroeModificato.getNome() == null) {
 		  e.setNome(vecchioEroe.getNome());
 	  } else {
-		  e.setNome( eroeModificato.getNome());
+		  e.setNome(eroeModificato.getNome());
 	  }
 	  
 	  if(eroeModificato.getPotere() == null) {
@@ -227,17 +227,18 @@ public class GestioneBattleground {
 		  e.setPotere(eroeModificato.getPotere());
 	  }
 	 
-	  if( eroeModificato.getCosto() == 0 && vecchioEroe.getCosto() != 0){
+	  if( eroeModificato.getCosto() < 0){
 		  e.setCosto(vecchioEroe.getCosto());
 	  } else {
 		  e.setCosto((Integer) eroeModificato.getCosto());
 	  }
 	  
-	  if(eroeModificato.getHP()==0 && vecchioEroe.getHP()!=0) {
+	  if(eroeModificato.getHP() <0 ) {
 		  e.setHP(vecchioEroe.getHP());
 	  } else {
 		  e.setHP( eroeModificato.getHP());
 	  }
+	  
 	  return  e;
   }
   

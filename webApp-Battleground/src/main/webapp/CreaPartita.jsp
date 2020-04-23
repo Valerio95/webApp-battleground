@@ -12,8 +12,8 @@
 <meta charset="ISO-8859-1">
 <title>CreaPartita</title>
 </head>
-<body class="sfondo">
-	<div>
+<body >
+	<div class="center">
 		<% String messaggio = (String) request.getAttribute("messaggio"); 
 	if (messaggio != null ){
 		%>
@@ -33,14 +33,14 @@
 			<label for="composizione">Composizione</label><br> 
 			<p> <select name="composizione">
          <%for(Composizione c:listaComposizioni){%>
-         <option value="<%=c.getNome()%>" > "<%=c.getNome()%>"
+         <option value="<%=c.getNome()%>" > <%=c.getNome()%>
          <% } %>
         </select></p>
 			 
 			<label for="eroe">Eroe scelto</label><br>
 			<p> <select name="eroe">
          <%for(Eroe e: listaEroi){%>
-         <option value="<%=e.getNome()%>" > "<%=e.getNome()%>"
+         <option value="<%=e.getNome()%>" > <%=e.getNome()%>
          <% } %>
         </select></p>
 			<label for="risultato">Posizione finale</label><br> 

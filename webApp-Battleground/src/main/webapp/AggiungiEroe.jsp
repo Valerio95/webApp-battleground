@@ -67,7 +67,7 @@
 </form>
 </div>
 
-<form action="SceltaAdmin">
+ <form action="SceltaAdmin">
  <input type="submit" name="azione" value="Torna indietro">
  </form>
 

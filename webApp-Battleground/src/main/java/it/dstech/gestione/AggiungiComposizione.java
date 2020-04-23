@@ -26,7 +26,7 @@ public class AggiungiComposizione extends HttpServlet {
 		  composizione.setNome(nome);
 		  GestioneBattleground gestione = new GestioneBattleground();
 		  gestione.aggiungiComposizione(composizione);
-		 List<Composizione> listaComposizione= gestione.stampaComposizioni();
+		  List<Composizione> listaComposizione= gestione.stampaComposizioni();
 		  req.setAttribute("lista",listaComposizione );
 		  req.getRequestDispatcher("/AggiungiComposizione.jsp").forward(req, resp);;
 	  }

@@ -54,9 +54,7 @@ public class SceltaAdmin extends HttpServlet{
         req.getRequestDispatcher("/GestioneEroe.jsp").forward(req, resp);
       }
     else if ("torna indietro".equalsIgnoreCase(azione)) {
-        
-        
         req.getRequestDispatcher("/ProfiloAdmin.jsp").forward(req, resp);
-      }
+     }
   }
 }
