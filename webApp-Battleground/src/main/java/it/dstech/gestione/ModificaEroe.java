@@ -32,7 +32,7 @@ public class ModificaEroe extends HttpServlet {
 	  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		  HttpSession session = req.getSession();		  
 		  GestioneBattleground  gestione = new GestioneBattleground();
-		  System.out.println("Qui c'è il valore della request: "+ req.getParameter("nome"));
+		  
 		  Eroe vecchioEroe = (Eroe) session.getAttribute("eroe");
 		  Eroe eroeModificato = new Eroe();
 		  eroeModificato.setNome(req.getParameter("nome"));
@@ -46,20 +46,19 @@ public class ModificaEroe extends HttpServlet {
 			  eroeModificato.setHP(Integer.parseInt(req.getParameter("HP")));
 		  }
 		  
-		  Eroe nuovoEroe;
 		  try {
+			  Eroe nuovoEroe;
+			  nuovoEroe = gestione.checkNull(eroeModificato, vecchioEroe);
+		  
 			  if(req.getPart("Image") == null) {
-				  eroeModificato.setImage(vecchioEroe.getImage());
+				  nuovoEroe.setImage(vecchioEroe.getImage());
 			  } else {
 				  Part image = (Part) eroeModificato.getImage();  
 				  Blob imageBlob = gestione.conversionePartToBlob(image);
 				  eroeModificato.setImage(imageBlob);
 			  }
 			  
-			  nuovoEroe = gestione.checkNull(eroeModificato, vecchioEroe);
-			  
-			  
-			  session.setAttribute("nuovoEroe", nuovoEroe);
+			  session.setAttribute("eroe", nuovoEroe);
 			 
 			  gestione.modificaEroe(nuovoEroe, vecchioEroe);
 	

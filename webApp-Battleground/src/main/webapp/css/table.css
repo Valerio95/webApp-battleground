@@ -8,5 +8,5 @@
 	padding: 1px;
 }
 tr:nth-child(even) {
-	background-color: #c0c0c0;
+	background-color: transparent;
 }

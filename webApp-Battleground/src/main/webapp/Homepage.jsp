@@ -12,8 +12,8 @@
 <title>Battleground Tracker</title>
 </head>
 
-	<body>
-	<div class="center" >
+	<body >
+	<div class="center">
 	
 	<% String messaggio = (String) request.getAttribute("messaggio"); 
 		if (messaggio != null ){  %>

@@ -9,20 +9,17 @@ import java.util.Base64;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
-
 import org.apache.commons.io.IOUtils;
-
-
 import it.dstech.modelli.Composizione;
 import it.dstech.modelli.Eroe;
 import it.dstech.modelli.Partita;
@@ -199,48 +196,47 @@ public class GestioneBattleground {
   }
 	  
   public void modificaEroe(Eroe e, Eroe eroeDaModificare) {
+	  
 	  if(controlloEroe(e) == false) {
 		  em.getTransaction().begin();
-		  Query query = em.createQuery("UPDATE Eroe e SET e =  :eroe " + "WHERE e.nome = :nome");
-		  query.setParameter("eroe", e);
+		  Query query = em.createQuery("UPDATE Eroe SET nome = ?1, potere =?2, costo =?3, HP = ?4 " + "WHERE nome = :nome");
+		  query.setParameter(1, e.getNome());
+		  query.setParameter(2, e.getPotere());
+		  query.setParameter(3, e.getCosto());
+		  query.setParameter(4, e.getHP());
 		  query.setParameter("nome", eroeDaModificare.getNome());
 		  query.executeUpdate();
 		  em.getTransaction().commit();
 	  }
   }
   
-  
-	    
-	  
 	
-  public Eroe checkNull(Eroe eroeModificato ,Eroe vecchioEroe) throws IOException, ServletException, SerialException, SQLException {
+  public Eroe checkNull(Eroe eroeModificato, Eroe vecchioEroe) throws IOException, ServletException, SerialException, SQLException {
 	  
 	  Eroe e = new Eroe();
-
-	  if(eroeModificato.getNome() == null) {
+	  if(eroeModificato.getNome() == null || eroeModificato.getNome().equalsIgnoreCase("")) {
 		  e.setNome(vecchioEroe.getNome());
 	  } else {
 		  e.setNome(eroeModificato.getNome());
 	  }
 	  
-	  if(eroeModificato.getPotere() == null) {
+	  if(eroeModificato.getPotere() == null || eroeModificato.getPotere().equalsIgnoreCase("")) {
 		  e.setPotere(vecchioEroe.getPotere());
 	  } else {
 		  e.setPotere(eroeModificato.getPotere());
 	  }
 	 
-	  if( eroeModificato.getCosto() < 0){
+	  if( eroeModificato.getCosto() < 0 || eroeModificato.getNome().equalsIgnoreCase("")){
 		  e.setCosto(vecchioEroe.getCosto());
 	  } else {
 		  e.setCosto((Integer) eroeModificato.getCosto());
 	  }
 	  
-	  if(eroeModificato.getHP() <0 ) {
+	  if(eroeModificato.getHP() <0 || eroeModificato.getNome().equalsIgnoreCase("")) {
 		  e.setHP(vecchioEroe.getHP());
 	  } else {
 		  e.setHP( eroeModificato.getHP());
 	  }
-	  
 	  return  e;
   }
   
