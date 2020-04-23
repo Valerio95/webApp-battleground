@@ -65,7 +65,7 @@ public class ModificaEroe extends HttpServlet {
 	
 			  List<Eroe> lista = gestione.stampaEroi();
 			  req.setAttribute("lista", lista);
-			  req.getRequestDispatcher("/ModificaEroe.jsp").forward(req, resp); 
+			  req.getRequestDispatcher("/GestioneEroe.jsp").forward(req, resp); 
 			  
 		} catch (IOException | ServletException | SQLException e1) {
 			e1.printStackTrace();

@@ -9,6 +9,7 @@
 <link href="css/Default.css" rel="stylesheet" type="text/css">
 <link href="css/text.css" rel="stylesheet" type="text/css">
 <link href="css/table.css" rel="stylesheet" type="text/css"><head>
+
 <meta charset="ISO-8859-1">
 <title>CreaPartita</title>
 </head>
