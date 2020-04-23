@@ -31,7 +31,7 @@ public class GestioneEroe extends HttpServlet {
 			  List<Eroe> listaEroi= gestione.stampaEroi();
 			  req.setAttribute("lista", listaEroi);
 			  req.getRequestDispatcher("/GestioneEroe.jsp").forward(req, resp);
-		 } else if(scelta.equalsIgnoreCase("modifica")) {
+		  } else if(scelta.equalsIgnoreCase("modifica")) {
 			 HttpSession session = req.getSession();
 			 List<Eroe> lista = gestione.stampaEroi();
 			 Eroe eroe= gestione.getEroe(nomeEroe);

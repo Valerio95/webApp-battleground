@@ -15,6 +15,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
@@ -197,9 +200,8 @@ public class GestioneBattleground {
 	  em.getTransaction().commit();      
   }
 	  
-  public void modificaEroe(Eroe eroeModificato, Eroe eroeDaModificare) {
-	  if(controlloEroe(eroeModificato) == false) {
-		  Eroe e = checkNull(eroeModificato, eroeDaModificare);
+  public void modificaEroe(Eroe e, Eroe eroeDaModificare) {
+	  if(controlloEroe(e) == false) {
 		  em.getTransaction().begin();
 		  Query query = em.createQuery("UPDATE Eroe e SET e =  :eroe " + "WHERE e.nome = :nome");
 		  query.setParameter("eroe", e);
@@ -209,21 +211,36 @@ public class GestioneBattleground {
 	  }
   }
 	
-  public Eroe checkNull(Eroe nuovoEroe, Eroe vecchioEroe) {
+  public Eroe checkNull(Eroe eroeModificato ,Eroe vecchioEroe) throws IOException, ServletException, SerialException, SQLException {
+	  
 	  Eroe e = new Eroe();
-	  if(nuovoEroe.getNome() == null) {
+	 
+	  if(eroeModificato.getNome() == null) {
 		  e.setNome(vecchioEroe.getNome());
-	  } else if(nuovoEroe.getPotere() == null) {
-		  e.setNome(vecchioEroe.getPotere());
-	  } else if(vecchioEroe.getCosto()!=0 && nuovoEroe.getCosto()==0) {
+	  } else {
+		  e.setNome( eroeModificato.getNome());
+	  }
+	  
+	  if(eroeModificato.getPotere() == null) {
+		  e.setPotere(vecchioEroe.getPotere());
+	  } else {
+		  e.setPotere(eroeModificato.getPotere());
+	  }
+	 
+	  if( eroeModificato.getCosto() == 0 && vecchioEroe.getCosto() != 0){
 		  e.setCosto(vecchioEroe.getCosto());
-	  } else if(vecchioEroe.getHP()!=0 && nuovoEroe.getHP()==0) {
+	  } else {
+		  e.setCosto((Integer) eroeModificato.getCosto());
+	  }
+	  
+	  if(eroeModificato.getHP()==0 && vecchioEroe.getHP()!=0) {
 		  e.setHP(vecchioEroe.getHP());
-	  } else if(nuovoEroe.getImage() == null) {
-		  e.setImage(vecchioEroe.getImage());
+	  } else {
+		  e.setHP( eroeModificato.getHP());
 	  }
 	  return  e;
   }
+  
   
   public Blob conversionePartToBlob(Part image) throws IOException, SerialException, SQLException {
   	InputStream immagine =image.getInputStream();
