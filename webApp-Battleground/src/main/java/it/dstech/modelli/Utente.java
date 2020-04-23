@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
@@ -21,11 +22,8 @@ public class Utente {
     @Lob
     @Column(columnDefinition ="LONGBLOB NOT NULL")
     private Blob image;
-    
-    @OneToMany
-    List<Eroe> listaEroe = new ArrayList<Eroe>();
-    
-    @OneToMany
+      
+    @OneToMany(mappedBy = "utente")
     List<Partita> storicoPartite = new ArrayList<Partita>();
     
     public Utente() {
@@ -45,7 +43,17 @@ public class Utente {
       this.image = image;
     }
 
-    public String getUsername() {
+    
+
+	public List<Partita> getStoricoPartite() {
+		return storicoPartite;
+	}
+
+	public void setStoricoPartite(List<Partita> storicoPartite) {
+		this.storicoPartite = storicoPartite;
+	}
+
+	public String getUsername() {
       return username;
     }
 
@@ -86,8 +94,8 @@ public class Utente {
 	}
 
 	@Override
-    public String toString() {
-      return "Utente [username=" + username + ", password=" + password + ", active=" + active + ", rating="
-          + rating + "]";
-    }      
+	public String toString() {
+		return "Utente [username=" + username + ", password=" + password + ", active=" + active + ", rating=" + rating
+				+ ", image=" + image + ",  storicoPartite=" + storicoPartite + "]";
+	}      
 }

@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 
@@ -21,8 +22,7 @@ public class Eroe {
 	private String potere;
 	private int costo;
 	private int HP;
-	@OneToMany
-	private List<Utente> utenti;
+	
 	
 	
 	
@@ -70,13 +70,7 @@ public class Eroe {
 		this.costo = costo;
 	}
 
-	public List<Utente> getUtenti() {
-		return utenti;
-	}
-
-	public void setUtenti(List<Utente> utenti) {
-		this.utenti = utenti;
-	}
+	
 
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -92,22 +86,13 @@ public class Eroe {
 
 	
 
-	public List<Utente> getLibri() {
-		return utenti;
-	}
 	
-
-	public void setLibri(List<Utente> libri) {
-		this.utenti = libri;
-	}
-
 	public Eroe() {
 	}
 
 	@Override
 	public String toString() {
-		return "Eroe [nome=" + nome + ", image=" + image + ", potere=" + potere + ", costo=" + costo + ", HP=" + HP
-				+ ", utenti=" + utenti + "]";
+		return "Eroe [nome=" + nome + ", image=" + image + ", potere=" + potere + ", costo=" + costo + ", HP=" + HP +"]";
 	}
 	
 }

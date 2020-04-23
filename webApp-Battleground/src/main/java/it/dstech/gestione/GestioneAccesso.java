@@ -22,7 +22,7 @@ public class GestioneAccesso extends HttpServlet{
 	  Utente utente = new Utente( req.getParameter("username"),  req.getParameter("password"));
 	  String scelta = req.getParameter("scelta");
 	  session.setAttribute("utente", utente);
-    
+      
         GestioneBattleground gestione=new GestioneBattleground();
         if (scelta.equalsIgnoreCase("Log In")) {
           if (utente.getUsername().equalsIgnoreCase("") || utente.getPassword().equalsIgnoreCase("") || utente.getPassword()==null||utente.getUsername()==null){

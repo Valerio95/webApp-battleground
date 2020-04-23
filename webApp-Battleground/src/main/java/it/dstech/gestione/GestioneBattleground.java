@@ -16,15 +16,12 @@ import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
 
 import org.apache.commons.io.IOUtils;
 
-import com.mysql.cj.Session;
 
 import it.dstech.modelli.Composizione;
 import it.dstech.modelli.Eroe;
@@ -123,10 +120,11 @@ public class GestioneBattleground {
 	  return immagineString;
   }
   
-  public void creazionePartita(Partita p) {
+  public void creazionePartita(Partita p,Utente u) {
         em.getTransaction().begin();
         em.persist(p);
         em.getTransaction().commit();
+        
     }
 
   public void rimuoviEroe(String nome) {
@@ -212,6 +210,8 @@ public class GestioneBattleground {
   }
   
   
+	    
+	  
 	
   public Eroe checkNull(Eroe eroeModificato ,Eroe vecchioEroe) throws IOException, ServletException, SerialException, SQLException {
 	  

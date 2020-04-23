@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import it.dstech.modelli.Composizione;
 import it.dstech.modelli.Eroe;
 import it.dstech.modelli.Partita;
+import it.dstech.modelli.Utente;
 
 @WebServlet(urlPatterns = "/CreazionePartita")
 public class CreazionePartita extends HttpServlet{
@@ -24,22 +25,33 @@ public class CreazionePartita extends HttpServlet{
 
 	  @Override
 	  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		  HttpSession session = req.getSession();
+		  GestioneBattleground gestione = new GestioneBattleground();
+		  
+		  
 	    Partita partita= new Partita();
 	    partita.setComposizione((String)req.getParameter("composizione"));
         partita.setEroeScelto((String)req.getParameter("eroe"));
         partita.setNote(req.getParameter("note"));
         partita.setPosizioneFinale(Integer.parseInt(req.getParameter("PosizioneFinale")));
         partita.setRating(Integer.parseInt(req.getParameter("rating")));
-	    HttpSession session = req.getSession();
-	    session.setAttribute("partita", partita);       
-	    GestioneBattleground gestione = new GestioneBattleground();
-	    gestione.creazionePartita(partita);
+	
+        
+        Utente utente =(Utente) session.getAttribute("utente");
+        partita.setUtente(utente);
+        utente.getStoricoPartite().add(partita);
+        
+	         
+	   
+	   
+	    gestione.creazionePartita(partita,utente);
 	    List<Composizione> listaComposizioni =	gestione.stampaComposizioni();
         List<Eroe> listaEroi =	gestione.stampaEroi();
         List<Partita> listaPartite =	gestione.stampaPartite();
-         req.setAttribute("listaComposizioni", listaComposizioni);
-         req.setAttribute("listaEroi", listaEroi);
-         req.setAttribute("listaPartite", listaPartite);
+        session.setAttribute("partita", partita); 
+        req.setAttribute("listaComposizioni", listaComposizioni);
+        req.setAttribute("listaEroi", listaEroi);
+        req.setAttribute("listaPartite", listaPartite);
 
 	    
 	    req.getRequestDispatcher("/CreaPartita.jsp").forward(req, resp);

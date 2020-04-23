@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Partita {
@@ -19,8 +21,30 @@ public class Partita {
 	private String note;  
     private int rating;
 	
+    
+    @ManyToOne
+    @JoinColumn(name="utente")
+    private Utente utente;
+    
     public Partita() {
 	}
+
+    
+    
+    
+	public Utente getUtente() {
+		return utente;
+	}
+
+
+
+
+	public void setUtente(Utente utente) {
+		this.utente = utente;
+	}
+
+
+
 
 	public int getRating() {
 		return rating;
