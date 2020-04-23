@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import it.dstech.modelli.Composizione;
 import it.dstech.modelli.Eroe;
+import it.dstech.modelli.Utente;
 
 @WebServlet(urlPatterns = "/SceltaAdmin")
 public class SceltaAdmin extends HttpServlet{
@@ -31,18 +32,11 @@ public class SceltaAdmin extends HttpServlet{
         req.setAttribute("lista", lista);
         req.getRequestDispatcher("/AggiungiEroe.jsp").forward(req, resp);
         
-    } else if ("rimuovi eroe".equalsIgnoreCase(azione)) {
+    }  else if ("aggiungi composizione".equalsIgnoreCase(azione)) {
       
       GestioneBattleground db = new GestioneBattleground();
       List<Composizione> lista = db.stampaComposizioni();
-      session.setAttribute("lista", lista);
-      req.getRequestDispatcher("/RimuoviEroe.jsp").forward(req, resp);
-      
-    } else if ("aggiungi composizione".equalsIgnoreCase(azione)) {
-      
-      GestioneBattleground db = new GestioneBattleground();
-      List<Composizione> lista = db.stampaComposizioni();
-      session.setAttribute("lista", lista);
+      req.setAttribute("lista", lista);
       req.getRequestDispatcher("/AggiungiComposizione.jsp").forward(req, resp);
       
     } else if ("rimuovi composizione".equalsIgnoreCase(azione)) {
@@ -51,7 +45,15 @@ public class SceltaAdmin extends HttpServlet{
       List<Composizione> lista = db.stampaComposizioni();
       session.setAttribute("lista", lista);
       req.getRequestDispatcher("/RimuoviComposizione.jsp").forward(req, resp);
-    } else if ("torna indietro".equalsIgnoreCase(azione)) {
+    }
+    else if ("gestione eroe".equalsIgnoreCase(azione)) {
+        
+        GestioneBattleground db = new GestioneBattleground();
+        List<Eroe> lista = db.stampaEroi();
+        req.setAttribute("lista", lista);
+        req.getRequestDispatcher("/GestioneEroe.jsp").forward(req, resp);
+      }
+    else if ("torna indietro".equalsIgnoreCase(azione)) {
         
         
         req.getRequestDispatcher("/ProfiloAdmin.jsp").forward(req, resp);

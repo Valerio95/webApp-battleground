@@ -37,6 +37,7 @@ public class Registrazione extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	GestioneBattleground  gestione = new GestioneBattleground();
 	HttpSession session = req.getSession();
 	String username = req.getParameter("username");
     String password = req.getParameter("password");
@@ -45,7 +46,7 @@ public class Registrazione extends HttpServlet {
     Blob imageBlob;
     
 	try {
-		imageBlob = conversionePartToBlob(image);
+		imageBlob = gestione.conversionePartToBlob(image);
 		
 		Utente u = new Utente();
 		u.setPassword(password);
@@ -53,12 +54,12 @@ public class Registrazione extends HttpServlet {
 		u.setImage(imageBlob);
 		session.setAttribute("utente", u);
     
-    if(controlloUsername(u.getUsername())) {
+    if(gestione.controlloUsername(u.getUsername())) {
       req.setAttribute("messaggio", "Attenzione: come username deve essere inserita una email valida");
       req.getRequestDispatcher("/Registrazione.jsp").forward(req, resp);
     }
     try {
-      GestioneBattleground  gestione = new GestioneBattleground();
+      
       if(!gestione.controlloUtente(u)) {
     	  gestione.creazioneUtente(u);
     	  EmailUtility.sendEmail(u.getUsername(), "Conferma Mail", generaLinkValidazioneUtente(u));
@@ -76,36 +77,6 @@ public class Registrazione extends HttpServlet {
 	}
   }
   
-  
-    private Blob conversionePartToBlob(Part image) throws IOException, SerialException, SQLException {
-    	InputStream immagine =image.getInputStream();
-    	Blob blob = null;
-    	byte[] content = IOUtils.toByteArray(immagine);
-    	blob = new SerialBlob(content);
-    	return blob;
-    }
-  
-  /*  
-  private String conversionePartToString(Part image) throws IOException {
-      InputStream f= image.getInputStream();
-      byte[] imageBytes = new byte[ (int)image.getSize()];
-      f.read(imageBytes,0,imageBytes.length);
-      f.close();
-      String imageStr = Base64.getEncoder().encodeToString(imageBytes);
-      return imageStr;
-  }*/
-
-  
-  private boolean controlloUsername(String username) {
-    String regex = "/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g";
-    Pattern pattern = Pattern.compile(regex);
-    Matcher matcher = pattern.matcher(username);
-    if(matcher.matches()) {
-      return true;
-    }
-    return false;
-  }
-
 
   private String generaLinkValidazioneUtente(Utente utente) {
     String validationPath = "http://localhost:8080/webApp-Battleground/validazione?utente=";

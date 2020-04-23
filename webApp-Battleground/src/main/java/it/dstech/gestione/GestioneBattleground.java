@@ -7,11 +7,25 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Base64;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+import javax.sql.rowset.serial.SerialBlob;
+import javax.sql.rowset.serial.SerialException;
+
+import org.apache.commons.io.IOUtils;
+
+import com.mysql.cj.Session;
+
 import it.dstech.modelli.Composizione;
 import it.dstech.modelli.Eroe;
 import it.dstech.modelli.Partita;
@@ -42,9 +56,12 @@ public class GestioneBattleground {
     }
   }
   
+  
   public void close() {
     em.close();
   }
+  
+  
   public void creazioneEroe(Eroe e)throws NoResultException {
    if(!controlloEroe(e)) {
          
@@ -53,8 +70,13 @@ public class GestioneBattleground {
         em.getTransaction().commit();
    	}
    }
+  
+  public Eroe getEroe(String nome) {
+	    Eroe eroe  =   em.createQuery("SELECT e FROM Eroe e WHERE e.nome = ?1", Eroe.class).setParameter(1,nome).getSingleResult();       
+		return eroe;
+  }
 
-private boolean controlloEroe(Eroe e) {
+  public boolean controlloEroe(Eroe e) {
 	String username = e.getNome();
     List<Eroe> listaEroi  =   em.createQuery("SELECT e FROM Eroe e WHERE e.nome = ?1", Eroe.class).setParameter(1,username).getResultList();    
     for(Eroe eroe: listaEroi) {
@@ -102,20 +124,48 @@ private boolean controlloEroe(Eroe e) {
   }
   
   public void creazionePartita(Partita p) {
-         
         em.getTransaction().begin();
         em.persist(p);
         em.getTransaction().commit();
     }
 
-  public void rimuoviEroe() {
-	  em.createQuery("SELECT e FROM Eroe e ", Eroe.class);
+  public void rimuoviEroe(String nome) {
+	 Query query = em.createQuery("DELETE Eroe WHERE nome = ?1").setParameter(1, nome);
+	 em.getTransaction().begin();
+     int result = query.executeUpdate();
+     if(result!=0) {System.out.println("che bello");} else {System.out.println("che brutto");}
+     em.getTransaction().commit();
+     
   }
+  
+  
+  public void rimuoviComposizione(String nome) {
+		 Query query = em.createQuery("DELETE Composizione WHERE nome = ?1").setParameter(1, nome);
+		 em.getTransaction().begin();
+	     int result = query.executeUpdate();
+	     if(result!=0) {System.out.println("che bello");} else {System.out.println("che brutto");}
+	     em.getTransaction().commit();
+	     
+	  }
+  
+  
+  public void rimuoviUtente(String nome) {
+		 Query query = em.createQuery("DELETE Utente WHERE username = ?1").setParameter(1, nome);
+		 em.getTransaction().begin();
+	     int result = query.executeUpdate();
+	     if(result!=0) {System.out.println("che bello");} else {System.out.println("che brutto");}
+	     em.getTransaction().commit();
+	     
+	  }
+  
+  
   
   public List<Eroe> stampaEroi () {
     List<Eroe> listaEroi =   em.createQuery("SELECT e FROM Eroe e ", Eroe.class).getResultList();
     return listaEroi;
   }
+  
+  
   
   public List<Partita> stampaPartite () {
     List<Partita> listaPartite =   em.createQuery("SELECT p FROM Partita p ", Partita.class).getResultList();
@@ -143,19 +193,87 @@ private boolean controlloEroe(Eroe e) {
   
   
   public void validaUtente(Utente u) {
+	  Query query = em.createQuery("SELECT u FROM Utente u WHERE u.username = ?1", Utente.class).setParameter(1, u.getUsername());
+	  Utente utente = (Utente) query.getSingleResult();
+	  em.getTransaction().begin();
+	  utente.setActive(true);
+	  em.getTransaction().commit();      
+  }
+	  
+  public void modificaEroe(Eroe e, Eroe eroeDaModificare) {
+	  if(controlloEroe(e) == false) {
+		  em.getTransaction().begin();
+		  Query query = em.createQuery("UPDATE Eroe e SET e =  :eroe " + "WHERE e.nome = :nome");
+		  query.setParameter("eroe", e);
+		  query.setParameter("nome", eroeDaModificare.getNome());
+		  query.executeUpdate();
+		  em.getTransaction().commit();
+	  }
+  }
+	
+  public Eroe checkNull(Eroe eroeModificato ,Eroe vecchioEroe) throws IOException, ServletException, SerialException, SQLException {
+	  
+	  Eroe e = new Eroe();
+	 
+	  if(eroeModificato.getNome() == null) {
+		  e.setNome(vecchioEroe.getNome());
+	  } else {
+		  e.setNome( eroeModificato.getNome());
+	  }
+	  
+	  if(eroeModificato.getPotere() == null) {
+		  e.setPotere(vecchioEroe.getPotere());
+	  } else {
+		  e.setPotere(eroeModificato.getPotere());
+	  }
+	 
+	  if( eroeModificato.getCosto() == 0 && vecchioEroe.getCosto() != 0){
+		  e.setCosto(vecchioEroe.getCosto());
+	  } else {
+		  e.setCosto((Integer) eroeModificato.getCosto());
+	  }
+	  
+	  if(eroeModificato.getHP()==0 && vecchioEroe.getHP()!=0) {
+		  e.setHP(vecchioEroe.getHP());
+	  } else {
+		  e.setHP( eroeModificato.getHP());
+	  }
+	  return  e;
+  }
+  
+  
+  public Blob conversionePartToBlob(Part image) throws IOException, SerialException, SQLException {
+  	InputStream immagine =image.getInputStream();
+  	Blob blob = null;
+  	byte[] content = IOUtils.toByteArray(immagine);
+  	blob = new SerialBlob(content);
+  	return blob;
+  }
 
-        Query query = em.createQuery("SELECT u FROM Utente u WHERE u.username = ?1", Utente.class).setParameter(1, u.getUsername());
-        
-        Utente utente = (Utente) query.getSingleResult();
-        em.getTransaction().begin();
-        utente.setActive(true);
-        em.getTransaction().commit();
 
-    }
+  public String conversionePartToString(Part image) throws IOException {
+    InputStream f= image.getInputStream();
+    byte[] imageBytes = new byte[ (int)image.getSize()];
+    f.read(imageBytes,0,imageBytes.length);
+    f.close();
+    String imageStr = Base64.getEncoder().encodeToString(imageBytes);
+    return imageStr;
+  }
+
+
+  public boolean controlloUsername(String username) {
+	  String regex = "/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g";
+	  Pattern pattern = Pattern.compile(regex);
+	  Matcher matcher = pattern.matcher(username);
+	  if(matcher.matches()) {
+		  return true;
+	  }
+	  return false;
+  }
 
   public boolean attivazioneUtente(Utente u) {
-    Query query = em.createQuery("SELECT u FROM Utente u WHERE u.username = ?1", Utente.class).setParameter(1, u.getUsername());
-        Utente utente = (Utente) query.getSingleResult();
-    return utente.isActive();
+	  Query query = em.createQuery("SELECT u FROM Utente u WHERE u.username = ?1", Utente.class).setParameter(1, u.getUsername());
+	  Utente utente = (Utente) query.getSingleResult();
+	  return utente.isActive();
   }
 }

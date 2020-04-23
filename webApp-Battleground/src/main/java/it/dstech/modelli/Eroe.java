@@ -21,12 +21,27 @@ public class Eroe {
 	private String potere;
 	private int costo;
 	private int HP;
-
-
-	
 	@OneToMany
 	private List<Utente> utenti;
 	
+	
+	
+	
+	
+	public Eroe(String nome, String potere) {
+		super();
+		this.nome = nome;
+		this.potere = potere;
+	}
+
+	public Eroe(String nome, String potere, int costo, int hP) {
+		super();
+		this.nome = nome;
+		this.potere = potere;
+		this.costo = costo;
+		HP = hP;
+	}
+
 	public int getHP() {
 		return HP;
 	}

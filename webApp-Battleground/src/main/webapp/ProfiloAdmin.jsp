@@ -30,9 +30,11 @@
 
 		<form action="SceltaAdmin" method="post">
 			<input type="submit"  class = "button" name ="azione" value="Aggiungi Eroe" /> <br><br>
-			<input type="submit"  class = "button" name ="azione" value="Rimuovi Eroe" /> <br><br>
+			<input type="submit"  class = "button" name ="azione" value="Gestione Eroe" /> <br><br>
 			<input type="submit"  class = "button" name ="azione" value="Aggiungi Composizione" /> <br><br>
 			<input type="submit"  class = "button" name ="azione" value="Rimuovi Composizione" /> <br><br>
+			
+			
 		</form>
 		<% } %>
 		
