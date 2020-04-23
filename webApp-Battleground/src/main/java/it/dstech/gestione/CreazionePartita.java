@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import it.dstech.modelli.Composizione;
+import it.dstech.modelli.Eroe;
 import it.dstech.modelli.Partita;
 
 @WebServlet(urlPatterns = "/CreazionePartita")
@@ -23,16 +25,23 @@ public class CreazionePartita extends HttpServlet{
 	  @Override
 	  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	    Partita partita= new Partita();
-	    partita.setComposizione(req.getParameter("composizine"));
-        partita.setEroeScelto(req.getParameter("eroe"));
+	    partita.setComposizione((String)req.getParameter("composizione"));
+        partita.setEroeScelto((String)req.getParameter("eroe"));
         partita.setNote(req.getParameter("note"));
+        partita.setPosizioneFinale(Integer.parseInt(req.getParameter("PosizioneFinale")));
         partita.setRating(Integer.parseInt(req.getParameter("rating")));
 	    HttpSession session = req.getSession();
-	    session.setAttribute("partita", partita);    
+	    session.setAttribute("partita", partita);       
 	    GestioneBattleground gestione = new GestioneBattleground();
-	 List<Partita> listaPartite =  gestione.stampaPartite();
-	 req.setAttribute("lista", listaPartite);
 	    gestione.creazionePartita(partita);
+	    List<Composizione> listaComposizioni =	gestione.stampaComposizioni();
+        List<Eroe> listaEroi =	gestione.stampaEroi();
+        List<Partita> listaPartite =	gestione.stampaPartite();
+         req.setAttribute("listaComposizioni", listaComposizioni);
+         req.setAttribute("listaEroi", listaEroi);
+         req.setAttribute("listaPartite", listaPartite);
+
+	    
 	    req.getRequestDispatcher("/CreaPartita.jsp").forward(req, resp);
 	  }
 

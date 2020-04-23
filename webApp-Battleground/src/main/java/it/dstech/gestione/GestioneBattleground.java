@@ -181,9 +181,9 @@ public class GestioneBattleground {
     return listaComposizioni;
   }
   
-  public void aggiungiComposizione (String composizione) {
+  public void aggiungiComposizione (Composizione c) {
     em.getTransaction().begin();
-        em.persist(composizione);
+        em.persist(c);
         em.getTransaction().commit();
     
   }

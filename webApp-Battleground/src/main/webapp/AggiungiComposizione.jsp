@@ -4,6 +4,8 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+<link href="css/Default.css" rel="stylesheet" type="text/css">
+<link href="css/text.css" rel="stylesheet" type="text/css">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
@@ -21,11 +23,11 @@
 <%List<Composizione> listaComposizioni = (List<Composizione>)request.getAttribute("lista"); %>
 		Inserisci il nome della composizione da aggiungere:
 
-		<form action="/CreazionePartita" method="post">
+		<form action="AggiungiComposizione" method="post">
 			
 			<label for="composizione">Composizione</label><br> 
 			<input type="text" name="composizione"><br> 
-			<input type="submit" class="button" name="composizione"><br> 
+			<input type="submit" class="button" value="aggiungi"><br> 
 			
 		</form>
 <table>
@@ -46,8 +48,8 @@
 
 		<% } %>
 
-		<form action="/SceltaUtente">
-		<input type="submit" name="scelta" value="Torna indietro"> 
+		<form action="/SceltaUtente" method="post">
+		<input type="submit" name="scelta" class="button" value="Torna indietro"> 
 
 		</form>
 
