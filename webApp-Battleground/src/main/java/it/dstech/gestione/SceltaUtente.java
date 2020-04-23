@@ -43,6 +43,10 @@ public class SceltaUtente extends HttpServlet {
         	
             req.getRequestDispatcher("/RimuoviUtente.jsp").forward(req, resp);
             
-          }
+          }else if (req.getParameter("scelta").equalsIgnoreCase("torna indietro")) {
+          	
+              req.getRequestDispatcher("/ProfiloUtente.jsp").forward(req, resp);
+              
+            }
       }
   }

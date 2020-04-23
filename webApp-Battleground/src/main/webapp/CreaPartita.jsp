@@ -27,23 +27,25 @@
 <%List<Eroe> listaEroi = (List<Eroe>)request.getAttribute("listaEroi"); %>
 		Inserisci i risultati della partita da aggiungere al tracker:
 
-		<form action="/CreazionePartita" method="post">
+		<form action="CreazionePartita" method="post">
+			
+			
 			<label for="composizione">Composizione</label><br> 
-			<p>Composizione: <select name="composizione">
+			<p> <select name="composizione">
          <%for(Composizione c:listaComposizioni){%>
-         <option value=<%=c%> > <%=c%>
+         <option value="<%=c.getNome()%>" > "<%=c.getNome()%>"
          <% } %>
         </select></p>
 			 
 			<label for="eroe">Eroe scelto</label><br>
-			<p>Eroe scelto: <select name="eroe">
+			<p> <select name="eroe">
          <%for(Eroe e: listaEroi){%>
-         <option value=<%=e.getNome()%> > <%=e.getNome()%>
+         <option value="<%=e.getNome()%>" > "<%=e.getNome()%>"
          <% } %>
         </select></p>
 			<label for="risultato">Posizione finale</label><br> 
-			<p>Posizione Finale: <select name="PosizioneFinale">
-         <%for(int i=0;i<=8;i++){%>
+			<p> <select name="PosizioneFinale">
+         <%for(int i=1;i<=8;i++){%>
          <option value=<%=i%> > <%=i%>
          <% } %>
         </select></p>
@@ -69,15 +71,15 @@
     <td><%=l.getComposizione()%></td> 
 	<td><%=l.getEroeScelto()%></td>
 	<td><%=l.getPosizioneFinale()%></td> 
-	<td><%=l.getRating()%></td> 
-
+	<td><%=l.getNote()%></td> 
+    <td><%=l.getRating()%></td> 
 
 <% } %>
 </table>
 
 		<% } %>
 
-		<form action="SceltaUtente">
+		<form action="SceltaUtente" method="post">
 		<input type="submit" name="scelta" value="Torna indietro"> 
 
 		</form>

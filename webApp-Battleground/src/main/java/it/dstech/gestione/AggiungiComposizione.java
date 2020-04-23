@@ -21,7 +21,9 @@ public class AggiungiComposizione extends HttpServlet {
 
 	  @Override
 	  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		  String composizione=(String) req.getAttribute("composizione");
+		  String nome=(String) req.getParameter("composizione");
+		  Composizione composizione =new Composizione();
+		  composizione.setNome(nome);
 		  GestioneBattleground gestione = new GestioneBattleground();
 		  gestione.aggiungiComposizione(composizione);
 		 List<Composizione> listaComposizione= gestione.stampaComposizioni();
