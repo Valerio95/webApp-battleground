@@ -201,7 +201,7 @@ public class GestioneBattleground {
   }
 	  
   public void modificaEroe(Eroe e, Eroe eroeDaModificare) {
-	  if(controlloEroe(e) == true) {
+	  if(controlloEroe(e) == false) {
 		  em.getTransaction().begin();
 		  Query query = em.createQuery("UPDATE Eroe e SET e =  :eroe " + "WHERE e.nome = :nome");
 		  query.setParameter("eroe", e);
@@ -210,6 +210,8 @@ public class GestioneBattleground {
 		  em.getTransaction().commit();
 	  }
   }
+  
+  
 	
   public Eroe checkNull(Eroe eroeModificato ,Eroe vecchioEroe) throws IOException, ServletException, SerialException, SQLException {
 	  

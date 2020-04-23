@@ -38,11 +38,11 @@ public class ModificaEroe extends HttpServlet {
 		  eroeModificato.setNome(req.getParameter("nome"));
 		  eroeModificato.setPotere(req.getParameter("potere"));
 		  eroeModificato.setCosto(-1);
-		  if(req.getParameter("costo") != null && req.getParameter("costo").equals("")) {
+		  if(req.getParameter("costo") != null && !req.getParameter("costo").equals("")) {
 			  eroeModificato.setCosto(Integer.parseInt(req.getParameter("costo")));
 		  }
 		  eroeModificato.setHP(-1);
-		  if(req.getParameter("HP") != null && req.getParameter("HP").equals("")) {
+		  if(req.getParameter("HP") != null && !req.getParameter("HP").equals("")) {
 			  eroeModificato.setHP(Integer.parseInt(req.getParameter("HP")));
 		  }
 		  
