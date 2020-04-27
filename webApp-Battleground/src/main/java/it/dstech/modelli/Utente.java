@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
@@ -18,13 +17,16 @@ public class Utente {
     private String username;
     private String password;
     private boolean active;
-    private int rating = 0;
+    private int ratingIniziale;
     @Lob
     @Column(columnDefinition ="LONGBLOB NOT NULL")
     private Blob image;
       
     @OneToMany(mappedBy = "utente")
     List<Partita> storicoPartite = new ArrayList<Partita>();
+     
+    private int ratingFinale;
+    
     
     public Utente() {
     }
@@ -39,11 +41,27 @@ public class Utente {
       this.username = username;
       this.password = password;
       this.active = active;
-      this.rating = rating;
+      this.ratingIniziale = rating;
       this.image = image;
     }
 
     
+
+	public int getRatingIniziale() {
+		return ratingIniziale;
+	}
+
+	public void setRatingIniziale(int ratingIniziale) {
+		this.ratingIniziale = ratingIniziale;
+	}
+
+	public int getRatingFinale() {
+		return ratingFinale;
+	}
+
+	public void setRatingFinale(int ratingFinale) {
+		this.ratingFinale = ratingFinale;
+	}
 
 	public List<Partita> getStoricoPartite() {
 		return storicoPartite;
@@ -77,13 +95,7 @@ public class Utente {
       this.active = active;
     }
 
-    public int getRating() {
-      return rating;
-    }
-
-    public void setRating(int rating) {
-      this.rating = rating;
-    }
+   
 
 	public Blob getImage() {
 		return image;
@@ -95,7 +107,7 @@ public class Utente {
 
 	@Override
 	public String toString() {
-		return "Utente [username=" + username + ", password=" + password + ", active=" + active + ", rating=" + rating
+		return "Utente [username=" + username + ", password=" + password + ", active=" + active + ", rating=" + ratingIniziale
 				+ ", image=" + image + ",  storicoPartite=" + storicoPartite + "]";
 	}      
 }

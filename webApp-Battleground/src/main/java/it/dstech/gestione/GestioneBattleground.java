@@ -73,6 +73,11 @@ public class GestioneBattleground {
 		return eroe;
   }
 
+  public Utente getUtente(String nome) {
+	    Utente utente  =   em.createQuery("SELECT e FROM Utente e WHERE e.username = ?1", Utente.class).setParameter(1,nome).getSingleResult();       
+		return utente;
+}
+  
   public boolean controlloEroe(Eroe e) {
 	String username = e.getNome();
     List<Eroe> listaEroi  =   em.createQuery("SELECT e FROM Eroe e WHERE e.nome = ?1", Eroe.class).setParameter(1,username).getResultList();    
@@ -125,6 +130,12 @@ public class GestioneBattleground {
         em.persist(p);
         em.getTransaction().commit();
         
+        Query query = em.createQuery("SELECT u FROM Utente u WHERE u.username = ?1", Utente.class).setParameter(1, u.getUsername());
+  	  Utente utente = (Utente) query.getSingleResult();
+  	  em.getTransaction().begin();
+  	  utente.setRatingFinale(u.getRatingFinale()+p.getRating());
+  	  em.getTransaction().commit();      
+        
     }
 
   public void rimuoviEroe(String nome) {
@@ -163,12 +174,78 @@ public class GestioneBattleground {
     return listaEroi;
   }
   
+  public int topFour (List<Partita> lista) {
+	  int count=0;
+	  int tot =lista.size();
+	  for(Partita partita: lista) {
+		  if (partita.getPosizioneFinale()<=4) {
+			  count++;
+		  }
+		  
+	  }
+	 return (count/tot)*100;
+  }
   
   
-  public List<Partita> stampaPartite () {
-    List<Partita> listaPartite =   em.createQuery("SELECT p FROM Partita p ", Partita.class).getResultList();
+  public int getVittorie (List<Partita> lista){
+	  int count=0;
+	  
+	  for(Partita partita: lista) {
+		  if (partita.getPosizioneFinale()==1) {
+			  count++;
+		  }
+		  
+	  }
+	 return count;
+  }
+  
+  
+  public int topFourEroe (List<Partita> lista, String e) {
+	  int count=0;
+	  int tot =lista.size();
+	  for(Partita partita: lista) {
+		  if (partita.getPosizioneFinale()<=4 && partita.getEroeScelto().equalsIgnoreCase(e)) {
+			  count++;
+		  }
+		  
+	  }
+	 return (count/tot)*100;
+  }
+  
+  public int totPartiteEroe ( List<Partita> lista, String e) {
+	  int count=0;
+	  int tot =lista.size();
+	  for(Partita partita: lista) {
+		  if (partita.getPosizioneFinale()<=4 && partita.getEroeScelto().equalsIgnoreCase(e)) {
+			  count++;
+		  }
+		  
+	  }
+	 return (count/tot)*100;
+  }
+  
+  public int getVittorieEroe (List<Partita> lista, String e){
+	  int count=0;
+	  
+	  
+	  
+	  for(Partita partita: lista) {
+		  if (partita.getPosizioneFinale()==1 && partita.getEroeScelto().equalsIgnoreCase(e)) {
+			  count++;
+		  }
+		  
+	  }
+	 return count;
+  }
+  
+  
+  
+  public List<Partita> stampaPartiteUtente (Utente u) {
+    List<Partita> listaPartite =   em.createQuery("SELECT p FROM Partita p WHERE p.utente = :username", Partita.class).setParameter("username", u.getUsername()).getResultList();
     return listaPartite;
   }
+  
+  
   
   
   public List<Utente> stampaUtenti () {
@@ -220,15 +297,12 @@ public class GestioneBattleground {
   public Eroe checkNull(Eroe eroeModificato ,Eroe vecchioEroe) throws IOException, ServletException, SerialException, SQLException {
 	  
 	  Eroe e = new Eroe();
-
-	  
-	  
+  
 	  if(eroeModificato.getPotere() == null || eroeModificato.getPotere().equalsIgnoreCase("") ) {
 		  e.setPotere(vecchioEroe.getPotere());
 	  } else {
 		  e.setPotere(eroeModificato.getPotere());
 	  }
-	 
 	  if( eroeModificato.getCosto() < 0){
 		  e.setCosto(vecchioEroe.getCosto());
 	  } else {

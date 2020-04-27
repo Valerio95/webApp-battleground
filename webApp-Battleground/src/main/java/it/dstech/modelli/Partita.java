@@ -1,12 +1,16 @@
 
 package it.dstech.modelli;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 public class Partita {
@@ -20,7 +24,8 @@ public class Partita {
 	private int  posizioneFinale;  
 	private String note;  
     private int rating;
-	
+	@CreationTimestamp
+    private Timestamp dataCreazione;
     
     @ManyToOne
     @JoinColumn(name="utente")
@@ -32,6 +37,20 @@ public class Partita {
     
     
     
+	public Timestamp getDataCreazione() {
+		return dataCreazione;
+	}
+
+
+
+
+	public void setDataCreazione(Timestamp dataCreazione) {
+		this.dataCreazione = dataCreazione;
+	}
+
+
+
+
 	public Utente getUtente() {
 		return utente;
 	}

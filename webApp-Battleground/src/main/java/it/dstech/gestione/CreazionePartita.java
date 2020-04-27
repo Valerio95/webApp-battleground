@@ -47,7 +47,7 @@ public class CreazionePartita extends HttpServlet{
 	    gestione.creazionePartita(partita,utente);
 	    List<Composizione> listaComposizioni =	gestione.stampaComposizioni();
         List<Eroe> listaEroi =	gestione.stampaEroi();
-        List<Partita> listaPartite =	gestione.stampaPartite();
+        List<Partita> listaPartite =	gestione.stampaPartiteUtente(utente);
         session.setAttribute("partita", partita); 
         req.setAttribute("listaComposizioni", listaComposizioni);
         req.setAttribute("listaEroi", listaEroi);

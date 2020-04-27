@@ -17,13 +17,13 @@ public class GestioneAccesso extends HttpServlet{
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	  GestioneBattleground gestione=new GestioneBattleground();
 	  HttpSession session =req.getSession();
-
-	  Utente utente = new Utente( req.getParameter("username"),  req.getParameter("password"));
+	  Utente utente = gestione.getUtente(req.getParameter("username"));
 	  String scelta = req.getParameter("scelta");
-	  session.setAttribute("utente", utente);
+	  
       
-        GestioneBattleground gestione=new GestioneBattleground();
+       
         if (scelta.equalsIgnoreCase("Log In")) {
           if (utente.getUsername().equalsIgnoreCase("") || utente.getPassword().equalsIgnoreCase("") || utente.getPassword()==null||utente.getUsername()==null){
             req.setAttribute("messaggio", "Credenziali errate o account non registrato");
@@ -33,7 +33,9 @@ public class GestioneAccesso extends HttpServlet{
             } else {
               if(gestione.controlloUtente(utente) && gestione.attivazioneUtente(utente)) {
             	try {
+            		 
 					session.setAttribute("immagineString", gestione.getImageUtenteString(utente));
+					session.setAttribute("utente", utente);
 					req.getRequestDispatcher("/ProfiloUtente.jsp").forward(req, resp);
 				} catch (IOException | SQLException e) {
 					e.printStackTrace();

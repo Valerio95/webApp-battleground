@@ -1,12 +1,9 @@
 package it.dstech.gestione;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Base64;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.mail.MessagingException;
 import javax.servlet.ServletException;
@@ -17,9 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import javax.sql.rowset.serial.SerialBlob;
-import javax.sql.rowset.serial.SerialException;
-import org.apache.commons.io.IOUtils;
 import it.dstech.modelli.Utente;
 import it.dstech.utility.EmailUtility;
 
@@ -41,6 +35,7 @@ public class Registrazione extends HttpServlet {
 	HttpSession session = req.getSession();
 	String username = req.getParameter("username");
     String password = req.getParameter("password");
+    int rating = Integer.parseInt(req.getParameter("rating"));
     Part image = req.getPart("image");
     
     Blob imageBlob;
@@ -52,6 +47,8 @@ public class Registrazione extends HttpServlet {
 		u.setPassword(password);
 		u.setUsername(username);
 		u.setImage(imageBlob);
+		u.setRatingIniziale(rating);
+		u.setRatingFinale(rating);
 		session.setAttribute("utente", u);
     
     if(gestione.controlloUsername(u.getUsername())) {

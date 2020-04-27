@@ -25,15 +25,18 @@
 				<form action= "Registrazione" method="post" enctype="multipart/form-data">
 
 					<b><label for="username">Username:</label><br></b>
-		  			<input2><input type="text" name="username" placeholder="E-mail"></input2><br>
+		  			<input type="text" class="button" name="username" placeholder="E-mail"><br>
 		  			<br>
 		  			<b><label for="password">Password:</label><br></b>
-		  			<input2><input type="password" name="password" placeholder="Password"></input2><br>
+		  			<input type="password" class="button" name="password" placeholder="Password"><br>
 		  			<br>
-		  			<b><label for="password">Immagine:</label><br></b>
-		  			<input type="file" name="image" placeholder="Inserisci l'immagine del porfilo">
+		  			<b><label for="rating">Rating:</label><br></b>
+		  			<input type="number" class="button" name="rating" placeholder="Rating"><br>
 		  			<br>
-					<br><button><input type="submit" class="button" name="scelta" value="Sign In" /></button>
+		  			<b><label for="immagine">Immagine:</label><br></b>
+		  			<input type="file" class="button" name="image" placeholder="Inserisci l'immagine del porfilo">
+		  			<br>
+					<br><input type="submit" class="button" name="scelta" value="Sign In" />
 				</form>
 
 			</div>
