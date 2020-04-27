@@ -53,7 +53,7 @@ public class ModificaEroe extends HttpServlet {
 			  nuovoEroe = gestione.checkNull(eroeModificato, vecchioEroe);
 			  
 			  
-			  session.setAttribute("nuovoEroe", nuovoEroe);
+			  session.setAttribute("eroe", nuovoEroe);
 			 
 			  gestione.modificaEroe(nuovoEroe, vecchioEroe);
 	

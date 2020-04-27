@@ -199,7 +199,7 @@ public class GestioneBattleground {
   }
 	  
   public void modificaEroe(Eroe e, Eroe eroeDaModificare) {
-	 if(controlloEroe(e) == false) {
+	 
 		 Query query = em.createQuery("SELECT e FROM Eroe e WHERE e.nome = ?1", Eroe.class).setParameter(1, eroeDaModificare.getNome());
 		 Eroe eroe= (Eroe) query.getSingleResult();
 		 em.getTransaction().begin();  
@@ -208,7 +208,7 @@ public class GestioneBattleground {
 	  
 	  eroe.setPotere(e.getPotere());
 	 em.getTransaction().commit();
-	  }
+	  
 	  
 	 
   }
@@ -221,13 +221,9 @@ public class GestioneBattleground {
 	  
 	  Eroe e = new Eroe();
 
-	  if(eroeModificato.getNome() == null) {
-		  e.setNome(vecchioEroe.getNome());
-	  } else {
-		  e.setNome(eroeModificato.getNome());
-	  }
 	  
-	  if(eroeModificato.getPotere() == null) {
+	  
+	  if(eroeModificato.getPotere() == null || eroeModificato.getPotere().equalsIgnoreCase("") ) {
 		  e.setPotere(vecchioEroe.getPotere());
 	  } else {
 		  e.setPotere(eroeModificato.getPotere());
