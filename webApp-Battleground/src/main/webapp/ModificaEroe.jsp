@@ -18,11 +18,16 @@
 <%GestioneBattleground gestione = new GestioneBattleground(); %>
 
 
- <h1>Inserisci le caratteristiche dell'eroe da modificare</h1>
+ 
+ 
+ 
+ 
+ 
+ 
  
 	<form action="ModificaEroe" method="post" enctype="multipart/form-data">
-	<label for="nomeEroe">Nome Eroe:</label><br>
-   	<input type="text"  name="nome"  placeholder="<%=eroe.getNome()%>"/><br>
+	<h1><%=eroe.getNome()%></h1>
+	<h2>Inserisci le caratteristiche  da modificare</h2>
    		<p>Costo Eroe: <select name="costo">
          <option value="" disabled selected><%=eroe.getCosto()%></option>
          <%for(int i=0;i<=3;i++){%>

@@ -1,12 +1,20 @@
-.table {
+table {
+	background-color:brown;
 	font-family: arial, sans-serif;
-	border-collapse: collapse;
-	width: 10%;
-} th, td {
-  border: 1px solid black;
-   text-align: center;
-	padding: 1px;
+	border-collapse: inherit;
+	width: 1300px ;
+	border:hidden;
 }
-tr:nth-child(even) {
-	background-color: #c0c0c0;
+  td {
+  border: 1px solid #a2a52d;
+  border-collapse:unset;
+   text-align: center;
+	padding: initial;
+}
+th{
+	 border: 1px solid #a2a52d;
+  border-collapse:unset;
+   text-align: center;
+	padding: initial;
+	width: 1300px;
 }

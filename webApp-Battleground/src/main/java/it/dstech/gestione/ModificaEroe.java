@@ -48,13 +48,7 @@ public class ModificaEroe extends HttpServlet {
 		  
 		  Eroe nuovoEroe;
 		  try {
-			  if(req.getPart("Image") == null) {
-				  eroeModificato.setImage(vecchioEroe.getImage());
-			  } else {
-				  Part image = (Part) eroeModificato.getImage();  
-				  Blob imageBlob = gestione.conversionePartToBlob(image);
-				  eroeModificato.setImage(imageBlob);
-			  }
+			 
 			  
 			  nuovoEroe = gestione.checkNull(eroeModificato, vecchioEroe);
 			  

@@ -199,14 +199,18 @@ public class GestioneBattleground {
   }
 	  
   public void modificaEroe(Eroe e, Eroe eroeDaModificare) {
-	  if(controlloEroe(e) == false) {
-		  em.getTransaction().begin();
-		  Query query = em.createQuery("UPDATE Eroe e SET e =  :eroe " + "WHERE e.nome = :nome");
-		  query.setParameter("eroe", e);
-		  query.setParameter("nome", eroeDaModificare.getNome());
-		  query.executeUpdate();
-		  em.getTransaction().commit();
+	 if(controlloEroe(e) == false) {
+		 Query query = em.createQuery("SELECT e FROM Eroe e WHERE e.nome = ?1", Eroe.class).setParameter(1, eroeDaModificare.getNome());
+		 Eroe eroe= (Eroe) query.getSingleResult();
+		 em.getTransaction().begin();  
+	  eroe.setCosto(e.getCosto());
+	  eroe.setHP(e.getHP());
+	  
+	  eroe.setPotere(e.getPotere());
+	 em.getTransaction().commit();
 	  }
+	  
+	 
   }
   
   

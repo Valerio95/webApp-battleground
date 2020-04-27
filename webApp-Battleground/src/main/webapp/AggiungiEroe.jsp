@@ -5,7 +5,7 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<link href="css/AggiungiEroe.css" rel="stylesheet" type="text/css">
+<link href="css/Default.css" rel="stylesheet" type="text/css">
 <link href="css/text.css" rel="stylesheet" type="text/css">
 <link href="css/table.css" rel="stylesheet" type="text/css">
 <head>
@@ -38,10 +38,9 @@
    
 
 
-			
+		<h1>Lista Eroi	</h1>
 <table>
-	<tr>
-	<th>Lista Eroi</th></tr>
+	
 	<tr><td>Nome</td> 
 	<td>Potere</td> 
 	<td>Costo</td> 
@@ -58,19 +57,19 @@
 
 <td>
 
-<img alt="immagine" src="data:image/jpg;base64,<%=gestione.getImageEroeString(l)%>"> <br>
+<img class="cornice-foto" alt="immagine" src="data:image/jpg;base64,<%=gestione.getImageEroeString(l)%>"> <br>
 
 </td> 
 <% } %>
 </table>
 			
 </form>
-</div>
+
 
  <form action="SceltaAdmin">
  <input type="submit" name="azione" value="Torna indietro">
  </form>
 
-		
+	</div>	
 </body>
 </html>
